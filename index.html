@@ -551,12 +551,12 @@
       <div class="divider-diamond"></div>
       <div class="divider-line right"></div>
     </div>
-    <p class="invite-text">
+    <div class="invite-text">
       <span id="guestTarget" style="display: block; font-weight: 500; font-size: 24px; color: #f0e2b8; margin-bottom: 12px;">Дорогие родные и близкие,</span>
       приглашаем вас разделить с нами<br>
       один из самых счастливых дней нашей жизни —<br>
       <em>день нашей свадьбы</em>
-    </p>
+    </div>
   </div>
 
   <div class="photo-section">
@@ -564,8 +564,8 @@
       <div class="slider-container">
         <div class="slider-dots" id="sliderDots"></div>
         
-        <button class="slider-btn prev" onclick="moveSlide(-1)">❮</button>
-        <button class="slider-btn next" onclick="moveSlide(1)">❯</button>
+        <button class="slider-btn prev" type="button" onclick="moveSlide(-1)">❮</button>
+        <button class="slider-btn next" type="button" onclick="moveSlide(1)">❯</button>
 
         <div class="slider-track" id="sliderTrack">
           <div class="slide active"><img src="images/1.jpg" alt="Фото 1"></div>
@@ -630,7 +630,7 @@
     <div class="rsvp-title">Подтверждение участия</div>
     <div class="rsvp-sub">Пожалуйста, ответьте до 1 сентября 2026</div>
 
-    <div class="rsvp-form" id="rsvpForm" onsubmit="return false;">
+    <form class="rsvp-form" id="rsvpForm" onsubmit="return false;">
       <div class="field-group">
         <label class="field-label">Ваше имя</label>
         <input type="text" class="field-input" id="guestName" placeholder="Иван Иванов" />
@@ -670,7 +670,7 @@
         <i class="ti ti-alert-circle" aria-hidden="true" style="margin-right:6px;"></i>
         <span id="errorText">Пожалуйста, заполните имя и выберите ответ</span>
       </div>
-    </div>
+    </form>
 
     <div class="success-msg" id="successMsg">
       <div class="success-icon"><i class="ti ti-heart" aria-hidden="true"></i></div>
@@ -686,7 +686,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-  // Динамические имена гостей из ссылки
+  // Считывание имен из GET-параметра
   (function() {
     const search = window.location.search;
     if (search) {
@@ -705,7 +705,7 @@
     }
   })();
 
-  // Stars Background Animation
+  // Звездное небо
   const starsEl = document.getElementById('stars');
   for (let i = 0; i < 40; i++) {
     const s = document.createElement('div');
@@ -715,7 +715,7 @@
     starsEl.appendChild(s);
   }
 
-  // LOGIC FOR PHOTO SLIDER
+  // Логика слайдера
   let currentSlide = 0;
   const slides = document.querySelectorAll('.slide');
   const dotsContainer = document.getElementById('sliderDots');
@@ -766,7 +766,7 @@
     startAutoSlider();
   }
 
-  // EmailJS initialization
+  // Инициализация EmailJS
   emailjs.init('LV4oC3Uxu9Nbg7g7I');
 
   let guestCount = 1;
