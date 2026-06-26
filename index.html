@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Егор & Валерия — Приглашение на свадьбу</title>
   
-  <!-- ИКОНКА САЙТА (ФАВИКОН) С ЗАЩИТОЙ ОТ КЭША -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg?v=1">
 
   <style>
@@ -112,80 +111,57 @@
       margin: 0 auto;
     }
 
-    /* РОДНОЙ СЛАЙДЕР С ФОТО */
+    /* ФИКС КОНТЕЙНЕРА ОТКРЫТКИ */
     .photo-section {
       position: relative;
       z-index: 1;
-      padding: 32px 24px 0;
+      padding: 32px 24px;
       text-align: center;
     }
 
     .slider-frame {
       display: inline-block;
-      max-width: 420px;
+      max-width: 450px;
       width: 100%;
       border: 0.5px solid rgba(184, 148, 90, 0.35);
-      border-radius: 2px;
-      padding: 3px;
+      border-radius: 4px;
+      padding: 4px;
       background: #2a1a08;
-      position: relative;
-      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
     }
 
     .slider-container {
       position: relative;
       width: 100%;
-      height: 480px;
-      border-radius: 1px;
-      overflow: hidden;
       background: #1a1008;
+      overflow: hidden;
+      border-radius: 2px;
     }
 
     .slider-track {
       position: relative;
       width: 100%;
-      height: 100%;
     }
 
     .slide {
-      position: absolute;
-      top: 0; left: 0;
       width: 100%;
-      height: 100%;
-      opacity: 0;
-      z-index: 1;
-      transition: opacity 0.8s ease-in-out;
+      display: none;
     }
 
     .slide.active {
-      opacity: 1;
-      z-index: 2;
+      display: block;
+      animation: fadeInSlide 0.6s ease-in-out;
     }
 
     .slide img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
       display: block;
-      filter: sepia(20%) brightness(0.88) contrast(1.05);
     }
 
-    .photo-overlay {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      background: linear-gradient(to top, rgba(26,16,8,0.9) 0%, rgba(26,16,8,0.3) 60%, transparent 100%);
-      padding: 40px 24px 24px;
-      pointer-events: none;
-      z-index: 4;
-    }
-
-    .photo-caption {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 20px;
-      font-style: italic;
-      color: #f0e2b8;
-      line-height: 1.5;
-      text-shadow: 0 1px 8px rgba(0,0,0,0.6);
+    @keyframes fadeInSlide {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     /* ДЕТАЛИ */
@@ -196,7 +172,7 @@
       grid-template-columns: 1fr 1fr 1fr;
       gap: 1px;
       background: rgba(184, 148, 90, 0.1);
-      margin: 40px 0 0;
+      margin: 20px 0 0;
       border-top: 0.5px solid rgba(184, 148, 90, 0.2);
       border-bottom: 0.5px solid rgba(184, 148, 90, 0.2);
     }
@@ -467,7 +443,7 @@
       color: #7a6840;
     }
 
-    /* ФИКС КНОПКИ МУЗЫКИ: кликабельная, справа внизу, максимальный приоритет */
+    /* ФИКС КНОПКИ МУЗЫКИ */
     .music-control-btn {
       position: fixed;
       bottom: 24px;
@@ -483,8 +459,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 999999 !important; /* Поверх абсолютно всего */
-      pointer-events: auto !important; /* Перехватывает клик в любой ситуации */
+      z-index: 999999 !important;
+      pointer-events: auto !important;
       box-shadow: 0 4px 16px rgba(0,0,0,0.7);
       transition: all 0.3s ease;
     }
@@ -492,7 +468,6 @@
     .music-control-btn:hover {
       transform: scale(1.08);
       background: #2a1a08;
-      border-color: #e8d5a3;
     }
 
     .music-control-btn.playing {
@@ -512,7 +487,6 @@
     @media (max-width: 480px) {
       .main-title { font-size: 52px; }
       .names { font-size: 26px; }
-      .slider-container { height: 380px; }
       .details-grid { grid-template-columns: 1fr; }
       .detail-card { padding: 24px 16px; border-bottom: 0.5px solid rgba(184,148,90,0.1); }
       .music-control-btn { bottom: 20px; right: 20px; width: 46px; height: 46px; font-size: 18px; }
@@ -524,7 +498,6 @@
 <div class="invite-wrap">
   <div class="stars" id="stars"></div>
 
-  <!-- HERO -->
   <div class="hero">
     <div class="eyebrow">01 · 10 · 2026 · Казань</div>
     <div class="main-title">Мы женимся</div>
@@ -542,25 +515,18 @@
     </div>
   </div>
 
-  <!-- ФОТОГАЛЕРЕЯ (СЛАЙДЕР) -->
   <div class="photo-section">
     <div class="slider-frame">
       <div class="slider-container">
         <div class="slider-track" id="sliderTrack">
-          <!-- Твой оригинальный слайдер со старой рабочей фоткой -->
           <div class="slide active">
-            <img src="Свадьба.PNG" alt="Егор и Валерия">
+            <img src="Свадьба.PNG?v=1" alt="Егор и Валерия">
           </div>
-        </div>
-
-        <div class="photo-overlay">
-          <div class="photo-caption">Будем счастливы видеть вас<br>на нашем празднике любви ♡</div>
-        </div>
+          </div>
       </div>
     </div>
   </div>
 
-  <!-- DETAILS -->
   <div class="details-grid">
     <div class="detail-card">
       <span class="detail-icon">📅</span>
@@ -579,7 +545,6 @@
     </div>
   </div>
 
-  <!-- DRESSCODE -->
   <div class="dresscode-section">
     <div class="section-title">Дресс-код</div>
     <div class="section-sub">Приветствуем оттенки</div>
@@ -608,7 +573,6 @@
     <p style="font-size:13px; color:#7a6840; font-style:italic;">праздничный образ</p>
   </div>
 
-  <!-- RSVP -->
   <div class="rsvp-section">
     <div class="rsvp-title">Подтверждение участия</div>
     <div class="rsvp-sub">Пожалуйста, ответьте до 1 сентября 2026</div>
@@ -661,8 +625,7 @@
     </div>
   </div>
 
-  <!-- АУДИОПЛЕЕР И КНОПКАУПРАВЛЕНИЯ -->
-  <audio id="bgMusic" src="music.mp3" loop prefetch="auto"></audio>
+  <audio id="bgMusic" src="music.mp3?v=1" loop preload="auto"></audio>
   <button id="musicBtn" class="music-control-btn" onclick="toggleMusic()">🎵</button>
 
   <div class="footer">
@@ -672,7 +635,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-  // Считывание персональных имен из ссылки
+  // Инициализация имен из URL
   (function() {
     const search = window.location.search;
     if (search) {
@@ -685,13 +648,13 @@
             document.getElementById('guestTarget').textContent = decodedName.trim() + ',';
           }
         } catch (e) {
-          console.error('Ошибка декодирования имени:', e);
+          console.error(e);
         }
       }
     }
   })();
 
-  // Генератор звездного неба
+  // Звезды
   const starsEl = document.getElementById('stars');
   for (let i = 0; i < 40; i++) {
     const s = document.createElement('div');
@@ -701,7 +664,18 @@
     starsEl.appendChild(s);
   }
 
-  // Музыкальный плеер
+  // Скрипт слайдера
+  const slides = document.querySelectorAll('.slide');
+  if (slides.length > 1) {
+    let currentSlide = 0;
+    setInterval(() => {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }, 4000);
+  }
+
+  // Логика плеера
   const audio = document.getElementById('bgMusic');
   const musicBtn = document.getElementById('musicBtn');
 
@@ -710,26 +684,26 @@
       audio.play().then(() => {
         musicBtn.classList.add('playing');
         musicBtn.textContent = '🔊';
-      }).catch(err => console.log("Блокировка браузера: нужен ручной клик."));
+      }).catch(err => alert("Кликните по экрану в любом месте, затем нажмите кнопку музыки снова."));
     } else {
       audio.pause();
       musicBtn.classList.remove('playing');
-      musicBtn.textContent = '🔇';
+      musicBtn.textContent = '🎵';
     }
   }
 
-  // Автозапуск музыки при клике в пустом месте экрана
+  // Автозапуск при первом взаимодействии
   document.addEventListener('click', function startMusicOnInteraction() {
     if (audio.paused && !musicBtn.classList.contains('playing')) {
       audio.play().then(() => {
         musicBtn.classList.add('playing');
         musicBtn.textContent = '🔊';
-      }).catch(e => console.log("Ожидание прямого тапа по кнопке"));
+      }).catch(e => console.log("Браузер заблокировал автоплей."));
     }
     document.removeEventListener('click', startMusicOnInteraction);
   }, { once: true });
 
-  // EmailJS логика
+  // EmailJS
   emailjs.init('LV4oC3Uxu9Nbg7g7I');
   let guestCount = 1;
 
@@ -739,8 +713,7 @@
   }
 
   document.getElementById('attendance').addEventListener('change', function() {
-    const wrap = document.getElementById('guestCountWrap');
-    wrap.style.display = this.value === 'no' ? 'none' : '';
+    document.getElementById('guestCountWrap').style.display = this.value === 'no' ? 'none' : '';
   });
 
   async function handleSubmit() {
