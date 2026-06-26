@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Егор & Валерия — Приглашение на свадьбу</title>
   
-  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=4">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=5">
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Raleway:wght@300;400;500&display=swap');
@@ -492,7 +492,7 @@
       50% { box-shadow: 0 0 0 12px rgba(184, 148, 90, 0); }
     }
 
-    /* КРАСИВОЕ ВС ПЛЫВАЮЩЕЕ ОКНО (ВОРКАУТ ДЛЯ МУЗЫКИ) */
+    /* ВС ПЛЫВАЮЩЕЕ ОКНО С ДВУМЯ КНОПКАМИ */
     .music-overlay {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -537,6 +537,13 @@
       margin-bottom: 32px;
     }
 
+    .overlay-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
+
     .music-play-btn {
       background: #b8945a;
       border: none;
@@ -550,12 +557,28 @@
       text-transform: uppercase;
       cursor: pointer;
       transition: all 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+      width: 100%;
     }
 
-    .music-play-btn:hover { background: #caa870; transform: scale(1.02); }
+    .music-play-btn:hover { background: #caa870; transform: scale(1.01); }
+
+    .music-skip-btn {
+      background: transparent;
+      border: 0.5px solid rgba(184, 148, 90, 0.4);
+      border-radius: 2px;
+      padding: 14px 36px;
+      color: #7a6840;
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      width: 100%;
+    }
+
+    .music-skip-btn:hover { border-color: rgba(184, 148, 90, 0.8); color: #e8d5a3; }
 
     @media (max-width: 480px) {
       .main-title { font-size: 52px; }
@@ -568,19 +591,26 @@
 </head>
 <body>
 
+<!-- ОКНО С ВЫБОРОМ МУЗЫКИ -->
 <div class="music-overlay" id="musicOverlay">
   <div class="music-box">
     <div class="music-box-title">Добро пожаловать</div>
     <div class="music-box-text">Включить музыкальное сопровождение для погружения в атмосферу нашего праздника?</div>
-    <button class="music-play-btn" onclick="startWeddingSite()">
-      Включить музыку ♡
-    </button>
+    <div class="overlay-buttons">
+      <button class="music-play-btn" onclick="startWeddingSite(true)">
+        Включить музыку ♡
+      </button>
+      <button class="music-skip-btn" onclick="startWeddingSite(false)">
+        Без музыки
+      </button>
+    </div>
   </div>
 </div>
 
 <div class="invite-wrap">
   <div class="stars" id="stars"></div>
 
+  <!-- HERO -->
   <div class="hero">
     <div class="eyebrow">01 · 10 · 2026 · Казань</div>
     <div class="main-title">Мы женимся</div>
@@ -598,6 +628,7 @@
     </div>
   </div>
 
+  <!-- СЛАЙДЕР НА 3 КАРТИНКИ -->
   <div class="photo-section">
     <div class="slider-frame">
       <div class="slider-container">
@@ -606,13 +637,13 @@
         
         <div class="slider-track">
           <div class="slide active">
-            <img src="1.jpg?v=4" alt="Фото 1">
+            <img src="1.jpg?v=5" alt="Фото 1">
           </div>
           <div class="slide">
-            <img src="2.jpg?v=4" alt="Фото 2">
+            <img src="2.jpg?v=5" alt="Фото 2">
           </div>
           <div class="slide">
-            <img src="3.jpg?v=4" alt="Фото 3">
+            <img src="3.jpg?v=5" alt="Фото 3">
           </div>
         </div>
       </div>
@@ -625,6 +656,7 @@
     </div>
   </div>
 
+  <!-- DETAILS -->
   <div class="details-grid">
     <div class="detail-card">
       <span class="detail-icon">📅</span>
@@ -643,6 +675,7 @@
     </div>
   </div>
 
+  <!-- DRESSCODE -->
   <div class="dresscode-section">
     <div class="section-title">Дресс-код</div>
     <div class="section-sub">Приветствуем оттенки</div>
@@ -671,6 +704,7 @@
     <p style="font-size:13px; color:#7a6840; font-style:italic;">праздничный образ</p>
   </div>
 
+  <!-- RSVP -->
   <div class="rsvp-section">
     <div class="rsvp-title">Подтверждение участия</div>
     <div class="rsvp-sub">Пожалуйста, ответьте до 1 сентября 2026</div>
@@ -723,7 +757,8 @@
     </div>
   </div>
 
-  <audio id="bgMusic" src="music.mp3?v=4" loop preload="auto"></audio>
+  <!-- АУДИО ТРЕК -->
+  <audio id="bgMusic" src="music.mp3?v=5" loop preload="auto"></audio>
   <button id="musicBtn" class="music-control-btn" onclick="toggleMusic()">🎵</button>
 
   <div class="footer">
@@ -796,13 +831,20 @@
   const musicBtn = document.getElementById('musicBtn');
   const overlay = document.getElementById('musicOverlay');
 
-  // Функция запуска сайта по кнопке
-  function startWeddingSite() {
+  // Функция запуска сайта по выбору пользователя
+  function startWeddingSite(shouldPlay) {
     overlay.classList.add('hidden'); // Убираем заставку
-    audio.play().then(() => {
-      musicBtn.classList.add('playing');
-      musicBtn.textContent = '🔊';
-    }).catch(err => console.log("Ошибка воспроизведения:", err));
+    
+    if (shouldPlay) {
+      audio.play().then(() => {
+        musicBtn.classList.add('playing');
+        musicBtn.textContent = '🔊';
+      }).catch(err => console.log("Ошибка воспроизведения:", err));
+    } else {
+      // Если выбрали без музыки — кнопка в углу остается в режиме паузы
+      musicBtn.classList.remove('playing');
+      musicBtn.textContent = '🎵';
+    }
   }
 
   function toggleMusic() {
