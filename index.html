@@ -2,89 +2,917 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-  <title>Егор & Валерия — Приглашение</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Егор & Валерия — Приглашение на свадьбу</title>
+  
+  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=5">
+
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Raleway:wght@300;400&display=swap');
-    * { box-sizing: border-box; }
-    body { background: #1a1008; color: #e8d5a3; font-family: 'Raleway', sans-serif; margin:0; }
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Raleway:wght@300;400;500&display=swap');
 
-    /* Анимация появления */
-    .fade-in { opacity: 0; transform: translateY(20px); transition: all 1s ease-out; }
-    .visible { opacity: 1; transform: translateY(0); }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    .container { max-width: 500px; margin: 0 auto; padding: 40px 20px; text-align: center; }
+    .invite-wrap {
+      background: #1a1008;
+      min-height: 100vh;
+      font-family: 'Raleway', sans-serif;
+      color: #e8d5a3;
+      position: relative;
+      overflow: hidden;
+    }
 
-    /* Счетчик */
-    .timer { display: flex; justify-content: center; gap: 15px; margin: 30px 0; }
-    .timer-item { font-family: 'Cormorant Garamond', serif; font-size: 20px; }
-    
-    /* Кнопки */
-    .btn-map { background: #b8945a; color: #1a1008; padding: 15px 30px; border: none; cursor: pointer; text-transform: uppercase; font-size: 12px; letter-spacing: 2px; display: inline-block; text-decoration: none; }
+    .stars {
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-    /* Футтер */
-    .footer { margin-top: 60px; font-size: 12px; color: #7a6840; border-top: 1px solid #3a2a1a; padding-top: 20px; }
+    .star {
+      position: absolute;
+      background: #e8d5a3;
+      border-radius: 50%;
+      opacity: 0.25;
+      animation: twinkle 3s ease-in-out infinite;
+    }
 
-    .music-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0d0804; z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px; }
-    .music-box { width: 100%; max-width: 350px; background: #2a1a08; border: 1px solid #b8945a; padding: 40px; text-align: center; }
-    .btn-action { display: block; width: 100%; padding: 15px; border: 1px solid #b8945a; background: #b8945a; color: #1a1008; margin-bottom: 10px; cursor: pointer; }
-    .btn-skip { background: transparent; color: #b8945a; }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.1; }
+      50% { opacity: 0.45; }
+    }
+
+    .hero {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 60px 24px 40px;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #b8945a;
+      margin-bottom: 24px;
+    }
+
+    .main-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 72px;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.1;
+      color: #f0e2b8;
+      margin-bottom: 8px;
+    }
+
+    .names {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 38px;
+      font-weight: 400;
+      color: #e8d5a3;
+      letter-spacing: 6px;
+      margin-bottom: 32px;
+    }
+
+    .amp { font-style: italic; color: #b8945a; font-weight: 300; letter-spacing: 2px; }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      justify-content: center;
+      margin-bottom: 32px;
+    }
+
+    .divider-line {
+      width: 80px; height: 0.5px;
+      background: linear-gradient(to right, transparent, #b8945a);
+    }
+
+    .divider-line.right { background: linear-gradient(to left, transparent, #b8945a); }
+
+    .divider-diamond {
+      width: 6px; height: 6px;
+      background: #b8945a;
+      transform: rotate(45deg);
+    }
+
+    .invite-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 300;
+      font-style: italic;
+      color: #c8b87a;
+      line-height: 1.8;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    /* СЛАЙДЕР С КАРТИНКАМИ */
+    .photo-section {
+      position: relative;
+      z-index: 2;
+      padding: 20px 24px 40px;
+      text-align: center;
+    }
+
+    .slider-frame {
+      display: inline-block;
+      max-width: 430px;
+      width: 100%;
+      border: 0.5px solid rgba(184, 148, 90, 0.35);
+      border-radius: 6px;
+      padding: 6px;
+      background: #2a1a08;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.6);
+    }
+
+    .slider-container {
+      position: relative;
+      width: 100%;
+      height: 610px;
+      background: #1a1008;
+      overflow: hidden;
+      border-radius: 4px;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      opacity: 0;
+      z-index: 1;
+      transition: opacity 0.8s ease-in-out;
+    }
+
+    .slide.active {
+      opacity: 1;
+      z-index: 2;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .slider-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(26, 16, 8, 0.65);
+      border: 0.5px solid rgba(184, 148, 90, 0.4);
+      color: #e8d5a3;
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      z-index: 10;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .slider-arrow:hover { background: #b8945a; color: #1a1008; }
+    .arrow-left { left: 12px; }
+    .arrow-right { right: 12px; }
+
+    .slider-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .dot {
+      width: 7px; height: 7px;
+      background: rgba(184, 148, 90, 0.3);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .dot.active {
+      background: #b8945a;
+      transform: scale(1.2);
+    }
+
+    /* ИНФО-БЛОКИ */
+    .details-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1px;
+      background: rgba(184, 148, 90, 0.15);
+      border-top: 0.5px solid rgba(184, 148, 90, 0.25);
+      border-bottom: 0.5px solid rgba(184, 148, 90, 0.25);
+      margin-top: 20px;
+    }
+
+    .detail-card {
+      background: #1a1008;
+      padding: 40px 24px;
+      text-align: center;
+    }
+
+    .detail-icon {
+      font-size: 24px;
+      color: #b8945a;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .detail-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #7a6840;
+      margin-bottom: 10px;
+    }
+
+    .detail-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: #f0e2b8;
+      line-height: 1.4;
+    }
+
+    /* ДРЕСС-КОД */
+    .dresscode-section {
+      position: relative;
+      z-index: 2;
+      padding: 64px 32px;
+      text-align: center;
+      border-bottom: 0.5px solid rgba(184, 148, 90, 0.15);
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      font-weight: 300;
+      font-style: italic;
+      color: #f0e2b8;
+      margin-bottom: 8px;
+    }
+
+    .section-sub {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #7a6840;
+      margin-bottom: 36px;
+    }
+
+    .color-swatches {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .swatch-wrap { display: flex; flex-direction: column; align-items: center; }
+
+    .swatch {
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      border: 0.5px solid rgba(184, 148, 90, 0.3);
+    }
+
+    .swatch-name {
+      font-size: 10px;
+      color: #7a6840;
+      text-align: center;
+      margin-top: 8px;
+      letter-spacing: 1px;
+    }
+
+    /* RSVP */
+    .rsvp-section {
+      position: relative;
+      z-index: 2;
+      padding: 64px 32px 80px;
+      text-align: center;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .rsvp-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 38px;
+      font-weight: 300;
+      font-style: italic;
+      color: #f0e2b8;
+      margin-bottom: 8px;
+    }
+
+    .rsvp-sub {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #7a6840;
+      margin-bottom: 40px;
+    }
+
+    .rsvp-form { display: flex; flex-direction: column; gap: 18px; text-align: left; }
+    .field-group { display: flex; flex-direction: column; gap: 6px; }
+
+    .field-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #7a6840;
+    }
+
+    .field-input {
+      background: rgba(255,255,255,0.03);
+      border: 0.5px solid rgba(184, 148, 90, 0.3);
+      border-radius: 2px;
+      padding: 15px 18px;
+      color: #e8d5a3;
+      font-family: 'Raleway', sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+
+    .field-input::placeholder { color: rgba(184, 148, 90, 0.25); }
+    .field-input:focus { border-color: rgba(184, 148, 90, 0.6); background: rgba(255,255,255,0.05); }
+
+    .field-select {
+      background: rgba(255,255,255,0.03);
+      border: 0.5px solid rgba(184, 148, 90, 0.3);
+      border-radius: 2px;
+      padding: 15px 18px;
+      color: #e8d5a3;
+      font-family: 'Raleway', sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      outline: none;
+      width: 100%;
+      cursor: pointer;
+      appearance: none;
+    }
+
+    .select-wrap { position: relative; }
+    .select-arrow {
+      position: absolute;
+      right: 16px; top: 50%;
+      transform: translateY(-50%);
+      color: #b8945a;
+      font-size: 12px;
+      pointer-events: none;
+    }
+
+    .count-input-wrap {
+      display: flex;
+      align-items: center;
+      border: 0.5px solid rgba(184, 148, 90, 0.3);
+      border-radius: 2px;
+    }
+
+    .count-btn {
+      background: rgba(184, 148, 90, 0.08);
+      border: none;
+      color: #b8945a;
+      width: 48px; height: 48px;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .count-display {
+      flex: 1;
+      text-align: center;
+      color: #f0e2b8;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      background: rgba(255,255,255,0.02);
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .submit-btn {
+      background: #b8945a;
+      border: none;
+      border-radius: 2px;
+      padding: 16px 32px;
+      color: #1a1008;
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .submit-btn:hover { background: #caa870; }
+
+    .success-msg {
+      display: none;
+      background: rgba(184, 148, 90, 0.06);
+      border: 0.5px solid rgba(184, 148, 90, 0.3);
+      padding: 32px 24px;
+      text-align: center;
+      margin-top: 16px;
+    }
+    .success-msg.visible { display: block; animation: fadeIn 0.4s ease; }
+    .success-icon { font-size: 32px; margin-bottom: 12px; }
+    .success-text { font-family: 'Cormorant Garamond', serif; font-size: 24px; color: #f0e2b8; }
+
+    .error-msg {
+      display: none;
+      background: rgba(200, 80, 50, 0.08);
+      border: 0.5px solid rgba(200, 80, 50, 0.3);
+      padding: 14px;
+      font-size: 13px;
+      color: #d4896a;
+      margin-top: 10px;
+      text-align: center;
+    }
+    .error-msg.visible { display: block; }
+
+    .footer {
+      position: relative; z-index: 2;
+      text-align: center;
+      padding: 40px;
+      border-top: 0.5px solid rgba(184, 148, 90, 0.1);
+    }
+
+    .footer-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px; font-style: italic;
+      color: #7a6840;
+    }
+
+    /* МАЛЕНЬКАЯ КНОПКА ПЛЕЕРА В УГЛУ */
+    .music-control-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 52px;
+      height: 52px;
+      background: #1a1008;
+      border: 1px solid #b8945a;
+      border-radius: 50%;
+      color: #e8d5a3;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+      transition: all 0.3s ease;
+    }
+
+    .music-control-btn.playing {
+      animation: pulseMusic 2s infinite ease-in-out;
+    }
+
+    @keyframes pulseMusic {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(184, 148, 90, 0.5); }
+      50% { box-shadow: 0 0 0 12px rgba(184, 148, 90, 0); }
+    }
+
+    /* ВС ПЛЫВАЮЩЕЕ ОКНО С ДВУМЯ КНОПКАМИ */
+    .music-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(13, 8, 4, 0.96);
+      z-index: 999999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .music-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(1.05);
+    }
+
+    .music-box {
+      max-width: 400px;
+      width: 100%;
+      background: #2a1a08;
+      border: 0.5px solid rgba(184, 148, 90, 0.4);
+      border-radius: 6px;
+      padding: 40px 24px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+    }
+
+    .music-box-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-style: italic;
+      color: #f0e2b8;
+      margin-bottom: 12px;
+    }
+
+    .music-box-text {
+      font-size: 14px;
+      color: #c8b87a;
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    .overlay-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .music-play-btn {
+      background: #b8945a;
+      border: none;
+      border-radius: 2px;
+      padding: 16px 36px;
+      color: #1a1008;
+      font-family: 'Raleway', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      width: 100%;
+    }
+
+    .music-play-btn:hover { background: #caa870; transform: scale(1.01); }
+
+    .music-skip-btn {
+      background: transparent;
+      border: 0.5px solid rgba(184, 148, 90, 0.4);
+      border-radius: 2px;
+      padding: 14px 36px;
+      color: #7a6840;
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      width: 100%;
+    }
+
+    .music-skip-btn:hover { border-color: rgba(184, 148, 90, 0.8); color: #e8d5a3; }
+
+    @media (max-width: 480px) {
+      .main-title { font-size: 52px; }
+      .names { font-size: 28px; }
+      .slider-container { height: 540px; }
+      .details-grid { grid-template-columns: 1fr; }
+      .detail-card { padding: 32px 16px; border-bottom: 0.5px solid rgba(184,148,90,0.1); }
+    }
   </style>
 </head>
 <body>
 
+<!-- ОКНО С ВЫБОРОМ МУЗЫКИ -->
 <div class="music-overlay" id="musicOverlay">
   <div class="music-box">
-    <h2 style="font-family:'Cormorant Garamond',serif; margin-bottom:20px;">Добро пожаловать</h2>
-    <button class="btn-action" onclick="initMusic(true)">Включить музыку ♡</button>
-    <button class="btn-action btn-skip" onclick="initMusic(false)">Без музыки</button>
+    <div class="music-box-title">Добро пожаловать</div>
+    <div class="music-box-text">Включить музыкальное сопровождение для погружения в атмосферу нашего праздника?</div>
+    <div class="overlay-buttons">
+      <button class="music-play-btn" onclick="startWeddingSite(true)">
+        Включить музыку ♡
+      </button>
+      <button class="music-skip-btn" onclick="startWeddingSite(false)">
+        Без музыки
+      </button>
+    </div>
   </div>
 </div>
 
-<div class="container">
-  <div class="fade-in">
-    <h1>Егор & Валерия</h1>
-    <p>До свадьбы осталось:</p>
-    <div class="timer" id="timer">
-      <div class="timer-item" id="days">00 д</div>
-      <div class="timer-item" id="hours">00 ч</div>
-      <div class="timer-item" id="mins">00 м</div>
+<div class="invite-wrap">
+  <div class="stars" id="stars"></div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="eyebrow">01 · 10 · 2026 · Казань</div>
+    <div class="main-title">Мы женимся</div>
+    <div class="names">Егор <span class="amp">&amp;</span> Валерия</div>
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-diamond"></div>
+      <div class="divider-line right"></div>
+    </div>
+    <div class="invite-text">
+      <span id="guestTarget" style="display: block; font-weight: 500; font-size: 24px; color: #f0e2b8; margin-bottom: 12px;">Дорогие родные и близкие,</span>
+      приглашаем вас разделить с нами<br>
+      один из самых счастливых дней нашей жизни —<br>
+      <em>день нашей свадьбы</em>
     </div>
   </div>
 
-  <div class="fade-in">
-    <p>Казань, ул. Пушкина, 52</p>
-    <a href="https://yandex.ru/maps/-/CCUuv6d9XD" class="btn-map" target="_blank">Открыть маршрут</a>
+  <!-- СЛАЙДЕР НА 3 КАРТИНКИ -->
+  <div class="photo-section">
+    <div class="slider-frame">
+      <div class="slider-container">
+        <button class="slider-arrow arrow-left" onclick="moveSlide(-1)">❮</button>
+        <button class="slider-arrow arrow-right" onclick="moveSlide(1)">❯</button>
+        
+        <div class="slider-track">
+          <div class="slide active">
+            <img src="1.jpg?" alt="Фото 1">
+          </div>
+          <div class="slide">
+            <img src="2.jpg" alt="Фото 2">
+          </div>
+          <div class="slide">
+            <img src="3.jpg" alt="Фото 3">
+          </div>
+        </div>
+      </div>
+      
+      <div class="slider-dots">
+        <div class="dot active" onclick="setSlide(0)"></div>
+        <div class="dot" onclick="setSlide(1)"></div>
+        <div class="dot" onclick="setSlide(2)"></div>
+      </div>
+    </div>
   </div>
 
+  <!-- DETAILS -->
+  <div class="details-grid">
+    <div class="detail-card">
+      <span class="detail-icon">📅</span>
+      <div class="detail-label">Дата</div>
+      <div class="detail-value">01.10.26</div>
+    </div>
+    <div class="detail-card">
+      <span class="detail-icon">🕒</span>
+      <div class="detail-label">Сбор гостей</div>
+      <div class="detail-value">17:00</div>
+    </div>
+    <div class="detail-card">
+      <span class="detail-icon">📍</span>
+      <div class="detail-label">Адрес</div>
+      <div class="detail-value" style="font-size:17px;">Казань,<br>ул. Пушкина, 52</div>
+    </div>
+  </div>
+
+  <!-- DRESSCODE -->
+  <div class="dresscode-section">
+    <div class="section-title">Дресс-код</div>
+    <div class="section-sub">Приветствуем оттенки</div>
+    <div class="color-swatches">
+      <div class="swatch-wrap">
+        <div class="swatch" style="background:#e8d5b0;"></div>
+        <div class="swatch-name">бежевый</div>
+      </div>
+      <div class="swatch-wrap">
+        <div class="swatch" style="background:#6b4f35;"></div>
+        <div class="swatch-name">шоколад</div>
+      </div>
+      <div class="swatch-wrap">
+        <div class="swatch" style="background:#4a6050;"></div>
+        <div class="swatch-name">зелёный</div>
+      </div>
+      <div class="swatch-wrap">
+        <div class="swatch" style="background:#7090a8;"></div>
+        <div class="swatch-name">голубой</div>
+      </div>
+      <div class="swatch-wrap">
+        <div class="swatch" style="background:#1a1a1a; border-color:rgba(184,148,90,0.5);"></div>
+        <div class="swatch-name">чёрный</div>
+      </div>
+    </div>
+    <p style="font-size:13px; color:#7a6840; font-style:italic;">праздничный образ</p>
+  </div>
+
+  <!-- RSVP -->
+  <div class="rsvp-section">
+    <div class="rsvp-title">Подтверждение участия</div>
+    <div class="rsvp-sub">Пожалуйста, ответьте до 1 сентября 2026</div>
+
+    <form class="rsvp-form" id="rsvpForm" onsubmit="return false;">
+      <div class="field-group">
+        <label class="field-label">Ваше имя</label>
+        <input type="text" class="field-input" id="guestName" placeholder="Иван Иванов" />
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Вы придёте?</label>
+        <div class="select-wrap">
+          <select class="field-select" id="attendance">
+            <option value="">— выберите ответ —</option>
+            <option value="yes">С радостью буду!</option>
+            <option value="no">К сожалению, не смогу</option>
+          </select>
+          <span class="select-arrow">▼</span>
+        </div>
+      </div>
+
+      <div class="field-group" id="guestCountWrap">
+        <label class="field-label">Количество гостей (включая вас)</label>
+        <div class="count-input-wrap">
+          <button class="count-btn" type="button" onclick="changeCount(-1)">−</button>
+          <div class="count-display" id="countDisplay">1</div>
+          <button class="count-btn" type="button" onclick="changeCount(1)">+</button>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Пожелания или комментарий</label>
+        <textarea class="field-input" id="comment" rows="3" placeholder="Напишите что-нибудь тёплое..." style="resize:none; line-height:1.6;"></textarea>
+      </div>
+
+      <button class="submit-btn" type="button" id="submitBtn" onclick="handleSubmit()">
+        Отправить ответ
+      </button>
+
+      <div class="error-msg" id="errorMsg">
+        <span id="errorText">Пожалуйста, заполните имя и выберите ответ</span>
+      </div>
+    </form>
+
+    <div class="success-msg" id="successMsg">
+      <div class="success-icon">❤️</div>
+      <div class="success-text" id="successText">Спасибо!</div>
+      <div class="success-sub" id="successSub">Ваш ответ отправлен!</div>
+    </div>
+  </div>
+
+  <!-- АУДИО ТРЕК -->
+  <audio id="bgMusic" src="music.mp3?v=5" loop preload="auto"></audio>
+  <button id="musicBtn" class="music-control-btn" onclick="toggleMusic()">🎵</button>
+
   <div class="footer">
-    <p>© 2026. Создано Женихом — Яшин Егор</p>
+    <div class="footer-text">С любовью, Егор &amp; Валерия ♡</div>
   </div>
 </div>
 
-<audio id="bgMusic" src="music.mp3" loop></audio>
-
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-  // Счетчик
-  const weddingDate = new Date("2026-10-01T17:00:00");
-  function updateTimer() {
-    const now = new Date();
-    const diff = weddingDate - now;
-    const d = Math.floor(diff / (1000*60*60*24));
-    const h = Math.floor((diff / (1000*60*60)) % 24);
-    const m = Math.floor((diff / 1000/60) % 60);
-    document.getElementById('days').innerText = d + " д";
-    document.getElementById('hours').innerText = h + " ч";
-    document.getElementById('mins').innerText = m + " м";
-  }
-  setInterval(updateTimer, 1000);
+  // Инициализация параметров URL
+  (function() {
+    const search = window.location.search;
+    if (search) {
+      const matches = search.match(/[?&]to=([^&]*)/);
+      if (matches && matches[1]) {
+        try {
+          const rawName = matches[1].replace(/\+/g, ' ');
+          const decodedName = decodeURIComponent(rawName);
+          if (decodedName.trim()) {
+            document.getElementById('guestTarget').textContent = decodedName.trim() + ',';
+          }
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    }
+  })();
 
-  // Музыка и появление
-  function initMusic(play) {
-    document.getElementById('musicOverlay').style.display = 'none';
-    if(play) document.getElementById('bgMusic').play();
-    // Активируем анимацию появления
-    document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+  // Звезды
+  const starsEl = document.getElementById('stars');
+  for (let i = 0; i < 40; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2 + 1;
+    s.style.cssText = `width:${size}px;height:${size}px;top:${Math.random()*100}%;left:${Math.random()*100}%;animation-delay:${Math.random()*4}s;animation-duration:${2+Math.random()*3}s`;
+    starsEl.appendChild(s);
+  }
+
+  // Карусель слайдов
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.dot');
+
+  function updateSlider() {
+    slides.forEach((slide, index) => {
+      if (index === currentSlide) {
+        slide.classList.add('active');
+        dots[index].classList.add('active');
+      } else {
+        slide.classList.remove('active');
+        dots[index].classList.remove('active');
+      }
+    });
+  }
+
+  function moveSlide(direction) {
+    currentSlide = (currentSlide + direction + slides.length) % slides.length;
+    updateSlider();
+  }
+
+  function setSlide(index) {
+    currentSlide = index;
+    updateSlider();
+  }
+
+  setInterval(() => { moveSlide(1); }, 4000);
+
+  // МУЗЫКАЛЬНАЯ ЛОГИКА
+  const audio = document.getElementById('bgMusic');
+  const musicBtn = document.getElementById('musicBtn');
+  const overlay = document.getElementById('musicOverlay');
+
+  // Функция запуска сайта по выбору пользователя
+  function startWeddingSite(shouldPlay) {
+    overlay.classList.add('hidden'); // Убираем заставку
+    
+    if (shouldPlay) {
+      audio.play().then(() => {
+        musicBtn.classList.add('playing');
+        musicBtn.textContent = '🔊';
+      }).catch(err => console.log("Ошибка воспроизведения:", err));
+    } else {
+      // Если выбрали без музыки — кнопка в углу остается в режиме паузы
+      musicBtn.classList.remove('playing');
+      musicBtn.textContent = '🎵';
+    }
+  }
+
+  function toggleMusic() {
+    if (audio.paused) {
+      audio.play().then(() => {
+        musicBtn.classList.add('playing');
+        musicBtn.textContent = '🔊';
+      }).catch(err => console.log(err));
+    } else {
+      audio.pause();
+      musicBtn.classList.remove('playing');
+      musicBtn.textContent = '🎵';
+    }
+  }
+
+  // EmailJS
+  emailjs.init('LV4oC3Uxu9Nbg7g7I');
+  let guestCount = 1;
+
+  function changeCount(delta) {
+    guestCount = Math.max(1, Math.min(10, guestCount + delta));
+    document.getElementById('countDisplay').textContent = guestCount;
+  }
+
+  document.getElementById('attendance').addEventListener('change', function() {
+    document.getElementById('guestCountWrap').style.display = this.value === 'no' ? 'none' : '';
+  });
+
+  async function handleSubmit() {
+    const name = document.getElementById('guestName').value.trim();
+    const attendance = document.getElementById('attendance').value;
+    const comment = document.getElementById('comment').value.trim();
+    const errEl = document.getElementById('errorMsg');
+    errEl.classList.remove('visible');
+
+    if (!name || !attendance) {
+      document.getElementById('errorText').textContent = 'Пожалуйста, заполните имя и выберите ответ';
+      errEl.classList.add('visible');
+      return;
+    }
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Отправляем...';
+
+    const attendingText = attendance === 'yes' ? `Придёт 🎉 (гостей: ${guestCount})` : 'Не придёт 😢';
+
+    const templateParams = {
+      to_email: 'asinegor17@gmail.com',
+      guest_name: name,
+      attendance: attendingText,
+      guest_count: attendance === 'yes' ? guestCount : 0,
+      comment: comment || 'Не указан',
+      reply_to: 'asinegor17@gmail.com'
+    };
+
+    try {
+      await emailjs.send('service_i6r1lej', 'template_y8svtrl', templateParams);
+      const firstName = name.split(' ')[0];
+      document.getElementById('successText').textContent = attendance === 'yes' ? `Ждём вас, ${firstName}!` : `Жаль, ${firstName}...`;
+      document.getElementById('rsvpForm').style.display = 'none';
+      document.getElementById('successMsg').classList.add('visible');
+    } catch (err) {
+      btn.disabled = false;
+      btn.textContent = 'Отправить ответ';
+      document.getElementById('errorText').textContent = 'Ошибка отправки. Попробуйте еще раз.';
+      errEl.classList.add('visible');
+    }
   }
 </script>
 </body>
