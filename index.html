@@ -468,7 +468,7 @@
       <div class="divider-line right"></div>
     </div>
     <p class="invite-text">
-      Дорогие родные и близкие,<br>
+      <span id="guestTarget" style="display: block; font-weight: 500; font-size: 24px; color: #f0e2b8; margin-bottom: 12px;">Дорогие родные и близкие,</span>
       приглашаем вас разделить с нами<br>
       один из самых счастливых дней нашей жизни —<br>
       <em>день нашей свадьбы</em>
@@ -534,10 +534,10 @@
     <div class="rsvp-title">Подтверждение участия</div>
     <div class="rsvp-sub">Пожалуйста, ответьте до 1 сентября 2026</div>
 
-    <div class="rsvp-form" id="rsvpForm">
+    <div class="rsvp-form" id="rsvpForm" onsubmit="return false;">
       <div class="field-group">
         <label class="field-label">Ваше имя</label>
-        <input type="text" class="field-input" id="guestName" placeholder="Иван Ivanov" />
+        <input type="text" class="field-input" id="guestName" placeholder="Иван Иванов" />
       </div>
 
       <div class="field-group">
@@ -566,7 +566,7 @@
         <textarea class="field-input" id="comment" rows="3" placeholder="Напишите что-нибудь тёплое..." style="resize:none; line-height:1.6;"></textarea>
       </div>
 
-      <button class="submit-btn" id="submitBtn" onclick="handleSubmit()">
+      <button class="submit-btn" type="button" id="submitBtn" onclick="handleSubmit()">
         Отправить ответ
       </button>
 
@@ -590,6 +590,17 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
+  // Динамические имена гостей из ссылки
+  (function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const guestName = urlParams.get('to');
+    
+    if (guestName) {
+      const decodedName = decodeURIComponent(guestName.replace(/\+/g, ' '));
+      document.getElementById('guestTarget').textContent = `${decodedName},`;
+    }
+  })();
+
   // Stars Background Animation
   const starsEl = document.getElementById('stars');
   for (let i = 0; i < 40; i++) {
@@ -649,12 +660,13 @@
       ? `Придёт 🎉 (гостей: ${guestCount})`
       : 'Не придёт 😢';
 
-    // Переменные приведены в соответствие с тегами в EmailJS {{name}}
     const templateParams = {
-      name: name,
+      to_email: 'asinegor17@gmail.com',
+      guest_name: name,
       attendance: attendingText,
       guest_count: attendance === 'yes' ? guestCount : 0,
-      comment: comment || 'Не указан'
+      comment: comment || 'Не указан',
+      reply_to: 'asinegor17@gmail.com'
     };
 
     try {
