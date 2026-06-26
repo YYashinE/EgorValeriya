@@ -731,9 +731,9 @@
         <button class="slider-arrow arrow-left" onclick="moveSlide(-1)">❮</button>
         <button class="slider-arrow arrow-right" onclick="moveSlide(1)">❯</button>
         <div class="slider-track">
-          <div class="slide active"><img src="1.webp" alt="Фото 1"></div>
-          <div class="slide"><img src="2.webp" alt="Фото 2" loading="lazy"></div>
-          <div class="slide"><img src="3.webp" alt="Фото 3" loading="lazy"></div>
+          <div class="slide active"><img src="1.jpg" alt="Фото 1"></div>
+          <div class="slide"><img src="2.jpg" alt="Фото 2" loading="lazy"></div>
+          <div class="slide"><img src="3.jpg" alt="Фото 3" loading="lazy"></div>
         </div>
       </div>
       <div class="slider-dots">
@@ -789,7 +789,7 @@
     <form class="rsvp-form" id="rsvpForm" onsubmit="return false;">
       <div class="field-group">
         <label class="field-label">Ваше имя</label>
-        <input type="text" class="field-input" id="guestName" placeholder="Имя и фамилия" />
+        <input type="text" class="field-input" id="guestName" placeholder="Введите имя пожалуйста" />
       </div>
 
       <div class="field-group">
@@ -825,7 +825,7 @@
     <div class="success-msg" id="successMsg">
       <div class="success-icon">❤️</div>
       <div class="success-text" id="successText">Спасибо!</div>
-      <div class="success-sub" id="successSub">Ваш ответ отправлен!</div>
+      <div class="success-sub" id="successSub">Ваш ответ отправлен жениху и невесте!</div>
     </div>
   </div>
 
@@ -965,7 +965,7 @@
 
     const params = {
       to_email: 'asinegor17@gmail.com',
-      guest_name: name,
+      name: name,
       attendance: attendingText,
       guest_count: attendance === 'yes' ? guestCount : 0,
       comment: comment || 'Без комментария',
