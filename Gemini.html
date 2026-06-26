@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Егор & Валерия — Приглашение на свадьбу</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Raleway:wght@300;400;500&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    .invite-wrap {
+      background: #1a1008;
+      min-height: 100vh;
+      font-family: 'Raleway', sans-serif;
+      color: #e8d5a3;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stars {
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .star {
+      position: absolute;
+      background: #e8d5a3;
+      border-radius: 50%;
+      opacity: 0.25;
+      animation: twinkle 3s ease-in-out infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.1; }
+      50% { opacity: 0.45; }
+    }
+
+    .hero {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 60px 24px 40px;
+      border-bottom: 0.5px solid rgba(232, 213, 163, 0.15);
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #b8945a;
+      margin-bottom: 24px;
+    }
+
+    .main-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 72px;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.1;
+      color: #f0e2b8;
+      margin-bottom: 8px;
+    }
+
+    .names {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 38px;
+      font-weight: 400;
+      color: #e8d5a3;
+      letter-spacing: 6px;
+      margin-bottom: 32px;
+    }
+
+    .amp { font-style: italic; color: #b8945a; font-weight: 300; letter-spacing: 2px; }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      justify-content: center;
+      margin-bottom: 32px;
+    }
+
+    .divider-line {
+      width: 80px; height: 0.5px;
+      background: linear-gradient(to right, transparent, #b8945a);
+    }
+
+    .divider-line.right { background: linear-gradient(to left, transparent, #b8945a); }
+
+    .divider-diamond {
+      width: 6px; height: 6px;
+      background: #b8945a;
+      transform: rotate(45deg);
+    }
+
+    .invite-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 300;
+      font-style: italic;
+      color: #c8b87a;
+      line-height: 1.8;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    /* PHOTO SECTION */
+    .photo-section {
+      position: relative;
+      z-index: 1;
+      padding: 32px 24px 0;
+      text-align: center;
+    }
+
+    .photo-frame {
+      display: inline-block;
+      max-width: 420px;
+      width: 100%;
+      border: 0.5px solid rgba(184, 148, 90, 0.35);
+      border-radius: 2px;
+      padding: 3px;
+      background: #2a1a08;
+      position: relative;
+    }
+
+    .photo-frame img {
+      width: 100%;
+      display: block;
+      border-radius: 1px;
+      filter: sepia(20%) brightness(0.88) contrast(1.05);
+    }
+
+    .photo-overlay {
+      position: absolute;
+      bottom: 0; left: 3px; right: 3px;
+      background: linear-gradient(to top, rgba(26,16,8,0.85) 0%, rgba(26,16,8,0.3) 60%, transparent 100%);
+      padding: 32px 24px 20px;
+      border-radius: 0 0 1px 1px;
+      pointer-events: none;
+    }
+
+    .photo-caption {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-style: italic;
+      color: #f0e2b8;
+      line-height: 1.5;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.6);
+    }
+
+    /* DETAILS */
+    .details-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1px;
+      background: rgba(184, 148, 90, 0.1);
+      margin: 40px 0 0;
+      border-top: 0.5px solid rgba(184, 148, 90, 0.2);
+      border-bottom: 0.5px solid rgba(184, 148, 90, 0.2);
+    }
+
+    .detail-card {
+      background: #1a1008;
+      padding: 32px 20px;
+      text-align: center;
+    }
+
+    .detail-icon {
+      font-size: 22px;
+      color: #b8945a;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .detail-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #7a6840;
+      margin-bottom: 8px;
+    }
+
+    .detail-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: #f0e2b8;
+      line-height: 1.3;
+    }
+
+    /* DRESSCODE */
+    .dresscode-section {
+      position: relative;
+      z-index: 1;
+      padding: 48px 32px;
+      text-align: center;
+      border-bottom: 0.5px solid rgba(184, 148, 90, 0.15);
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 300;
+      font-style: italic;
+      color: #f0e2b8;
+      margin-bottom: 8px;
+    }
+
+    .section-sub {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #7a6840;
+      margin-bottom: 28px;
+    }
+
+    .color-swatches {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .swatch-wrap { display: flex; flex-direction: column; align-items: center; }
+
+    .swatch {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 0.5px solid rgba(184, 148, 90, 0.3);
+    }
+
+    .swatch-name {
+      font-size: 10px;
+      color: #7a6840;
+      text-align: center;
+      margin-top: 6px;
+      letter-spacing: 1px;
+    }
+
+    /* RSVP */
+    .rsvp-section {
+      position: relative;
+      z-index: 1;
+      padding: 56px 32px 64px;
+      text-align: center;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .rsvp-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+      font-weight: 300;
+      font-style: italic;
+      color: #f0e2b8;
+      margin-bottom: 8px;
+    }
+
+    .rsvp-sub {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #7a6840;
+      margin-bottom: 36px;
+    }
+
+    .rsvp-form { display: flex; flex-direction: column; gap: 16px; text-align: left; }
+
+    .field-group { display: flex; flex-direction: column; gap: 6px; }
+
+    .field-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #7a6840;
+    }
+
+    .field-input {
+      background: rgba(255,255,255,0.04);
+      border: 0.5px solid rgba(184, 148, 90, 0.3);
+      border-radius: 2px;
+      padding: 14px 18px;
+      color: #e8d5a3;
+      font-family: 'Raleway', sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+
+    .field-input::placeholder { color: rgba(184, 148, 90, 0.3); }
+    .field-input:focus { border-color: rgba(184, 148, 90, 0.7); background: rgba(255,255,255,0.06); }
+
+    .field-select {
+      background: rgba(255,255,255,0.04);
+      border: 0.5px solid rgba(184, 148, 90, 0.3);
+      border-radius: 2px;
+      padding: 14px 18px;
+      color: #e8d5a3;
+      font-family: 'Raleway', sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      outline: none;
+      width: 100%;
+      cursor: pointer;
+      appearance: none;
+      transition: border-color 0.2s;
+    }
+
+    .field-select:focus { border-color: rgba(184, 148, 90, 0.7); }
+    .field-select option { background: #2a1a08; color: #e8d5a3; }
+
+    .select-wrap { position: relative; }
+
+    .select-arrow {
+      position: absolute;
+      right: 16px; top: 50%;
+      transform: translateY(-50%);
+      color: #b8945a;
+      font-size: 14px;
+      pointer-events: none;
+    }
+
+    .count-input-wrap {
+      display: flex;
+      align-items: center;
+      border: 0.5px solid rgba(184, 148, 90, 0.3);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .count-btn {
+      background: rgba(184, 148, 90, 0.1);
+      border: none;
+      color: #b8945a;
+      width: 44px; height: 48px;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+
+    .count-btn:hover { background: rgba(184, 148, 90, 0.2); }
+
+    .count-display {
+      flex: 1;
+      text-align: center;
+      color: #f0e2b8;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 400;
+      background: rgba(255,255,255,0.04);
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .submit-btn {
+      background: #b8945a;
+      border: none;
+      border-radius: 2px;
+      padding: 16px 32px;
+      color: #1a1008;
+      font-family: 'Raleway', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .submit-btn:hover { background: #caa870; }
+    .submit-btn:active { transform: scale(0.99); }
+    .submit-btn:disabled {
+      background: rgba(184, 148, 90, 0.3);
+      cursor: not-allowed;
+      color: rgba(26, 16, 8, 0.5);
+    }
+
+    .success-msg {
+      display: none;
+      background: rgba(184, 148, 90, 0.08);
+      border: 0.5px solid rgba(184, 148, 90, 0.3);
+      border-radius: 2px;
+      padding: 32px 24px;
+      text-align: center;
+      margin-top: 16px;
+    }
+
+    .success-msg.visible { display: block; animation: fadeIn 0.5s ease; }
+
+    .success-icon { font-size: 32px; color: #b8945a; margin-bottom: 12px; }
+    .success-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-style: italic;
+      color: #f0e2b8; margin-bottom: 8px;
+    }
+    .success-sub { font-size: 13px; color: #7a6840; line-height: 1.6; }
+
+    .error-msg {
+      display: none;
+      background: rgba(200, 80, 50, 0.08);
+      border: 0.5px solid rgba(200, 80, 50, 0.3);
+      border-radius: 2px;
+      padding: 16px;
+      font-size: 13px;
+      color: #d4896a;
+      margin-top: 8px;
+      text-align: center;
+    }
+    .error-msg.visible { display: block; }
+
+    .footer {
+      position: relative; z-index: 1;
+      text-align: center;
+      padding: 32px;
+      border-top: 0.5px solid rgba(184, 148, 90, 0.1);
+    }
+
+    .footer-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px; font-style: italic;
+      color: #7a6840;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 480px) {
+      .main-title { font-size: 52px; }
+      .names { font-size: 26px; }
+      .details-grid { grid-template-columns: 1fr; }
+      .detail-card { padding: 24px 16px; border-bottom: 0.5px solid rgba(184,148,90,0.1); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="invite-wrap">
+  <div class="stars" id="stars"></div>
+
+  <div class="hero">
+    <div class="eyebrow">01 · 10 · 2026 · Казань</div>
+    <div class="main-title">Мы женимся</div>
+    <div class="names">Егор <span class="amp">&</span> Валерия</div>
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-diamond"></div>
+      <div class="divider-line right"></div>
+    </div>
+    <p class="invite-text">
+      Дорогие родные и близкие,<br>
+      приглашаем вас разделить с нами<br>
+      один из самых счастливых дней нашей жизни —<br>
+      <em>день нашей свадьбы</em>
+    </p>
+  </div>
+
+  <div class="photo-section">
+    <div class="photo-frame">
+      <img src="Свадьба.PNG" alt="Егор и Валерия" id="couplePhoto" />
+      <div class="photo-overlay">
+        <div class="photo-caption">Будем счастливы видеть вас<br>на нашем празднике любви ♡</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="details-grid">
+    <div class="detail-card">
+      <span class="detail-icon"><i class="ti ti-calendar-heart" aria-hidden="true"></i></span>
+      <div class="detail-label">Дата</div>
+      <div class="detail-value">01.10.26</div>
+    </div>
+    <div class="detail-card">
+      <span class="detail-icon"><i class="ti ti-clock" aria-hidden="true"></i></span>
+      <div class="detail-label">Сбор гостей</div>
+      <div class="detail-value">17:00</div>
+    </div>
+    <div class="detail-card">
+      <span class="detail-icon"><i class="ti ti-map-pin" aria-hidden="true"></i></span>
+      <div class="detail-label">Адрес</div>
+      <div class="detail-value" style="font-size:17px;">Казань,<br>ул. Пушкина, 52</div>
+    </div>
+  </div>
+
+  <div class="dresscode-section">
+    <div class="section-title">Дресс-код</div>
+    <div class="section-sub">Приветствуем оттенки</div>
+    <div class="color-swatches">
+      <div class="swatch-wrap">
+        <div class="swatch" style="background:#e8d5b0;"></div>
+        <div class="swatch-name">бежевый</div>
+      </div>
+      <div class="swatch-wrap">
+        <div class="swatch" style="background:#6b4f35;"></div>
+        <div class="swatch-name">шоколад</div>
+      </div>
+      <div class="swatch-wrap">
+        <div class="swatch" style="background:#4a6050;"></div>
+        <div class="swatch-name">зелёный</div>
+      </div>
+      <div class="swatch-wrap">
+        <div class="swatch" style="background:#7090a8;"></div>
+        <div class="swatch-name">голубой</div>
+      </div>
+      <div class="swatch-wrap">
+        <div class="swatch" style="background:#1a1a1a; border-color:rgba(184,148,90,0.5);"></div>
+        <div class="swatch-name">чёрный</div>
+      </div>
+    </div>
+    <p style="font-size:13px; color:#7a6840; font-style:italic;">праздничный образ</p>
+  </div>
+
+  <div class="rsvp-section">
+    <div class="rsvp-title">Подтверждение участия</div>
+    <div class="rsvp-sub">Пожалуйста, ответьте до 1 сентября 2026</div>
+
+    <div class="rsvp-form" id="rsvpForm">
+      <div class="field-group">
+        <label class="field-label">Ваше имя</label>
+        <input type="text" class="field-input" id="guestName" placeholder="Иван Ivanov" />
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Вы придёте?</label>
+        <div class="select-wrap">
+          <select class="field-select" id="attendance">
+            <option value="">— выберите ответ —</option>
+            <option value="yes">С радостью буду!</option>
+            <option value="no">К сожалению, не смогу</option>
+          </select>
+          <span class="select-arrow"><i class="ti ti-chevron-down" aria-hidden="true"></i></span>
+        </div>
+      </div>
+
+      <div class="field-group" id="guestCountWrap">
+        <label class="field-label">Количество гостей (включая вас)</label>
+        <div class="count-input-wrap">
+          <button class="count-btn" type="button" onclick="changeCount(-1)">−</button>
+          <div class="count-display" id="countDisplay">1</div>
+          <button class="count-btn" type="button" onclick="changeCount(1)">+</button>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Пожелания или комментарий</label>
+        <textarea class="field-input" id="comment" rows="3" placeholder="Напишите что-нибудь тёплое..." style="resize:none; line-height:1.6;"></textarea>
+      </div>
+
+      <button class="submit-btn" id="submitBtn" onclick="handleSubmit()">
+        Отправить ответ
+      </button>
+
+      <div class="error-msg" id="errorMsg">
+        <i class="ti ti-alert-circle" aria-hidden="true" style="margin-right:6px;"></i>
+        <span id="errorText">Пожалуйста, заполните имя и выберите ответ</span>
+      </div>
+    </div>
+
+    <div class="success-msg" id="successMsg">
+      <div class="success-icon"><i class="ti ti-heart" aria-hidden="true"></i></div>
+      <div class="success-text" id="successText">Спасибо!</div>
+      <div class="success-sub" id="successSub">Ваш ответ отправлен!</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-text">С любовью, Егор & Валерия ♡</div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  // Stars Background Animation
+  const starsEl = document.getElementById('stars');
+  for (let i = 0; i < 40; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2 + 1;
+    s.style.cssText = `width:${size}px;height:${size}px;top:${Math.random()*100}%;left:${Math.random()*100}%;animation-delay:${Math.random()*4}s;animation-duration:${2+Math.random()*3}s`;
+    starsEl.appendChild(s);
+  }
+
+  // Photo fallback
+  const img = document.getElementById('couplePhoto');
+  img.onerror = function() {
+    if(this.parentElement.querySelector('.photo-overlay')) {
+      this.parentElement.querySelector('.photo-overlay').style.background = 'none';
+    }
+    this.style.display = 'none';
+    const placeholder = document.createElement('div');
+    placeholder.style.cssText = 'height:320px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#2a1808,#1a1205);';
+    placeholder.innerHTML = '<div style="font-family:Cormorant Garamond,serif;font-size:48px;font-style:italic;color:rgba(240,226,184,0.12);text-align:center;line-height:1.3;">Будем счастливы<br>видеть вас</div>';
+    this.parentElement.insertBefore(placeholder, this);
+  };
+
+  // EmailJS initialization
+  emailjs.init('LV4oC3Uxu9Nbg7g7I');
+
+  let guestCount = 1;
+
+  function changeCount(delta) {
+    guestCount = Math.max(1, Math.min(10, guestCount + delta));
+    document.getElementById('countDisplay').textContent = guestCount;
+  }
+
+  document.getElementById('attendance').addEventListener('change', function() {
+    const wrap = document.getElementById('guestCountWrap');
+    wrap.style.display = this.value === 'no' ? 'none' : '';
+  });
+
+  async function handleSubmit() {
+    const name = document.getElementById('guestName').value.trim();
+    const attendance = document.getElementById('attendance').value;
+    const comment = document.getElementById('comment').value.trim();
+    const errEl = document.getElementById('errorMsg');
+    errEl.classList.remove('visible');
+
+    if (!name || !attendance) {
+      document.getElementById('errorText').textContent = 'Пожалуйста, заполните имя и выберите ответ';
+      errEl.classList.add('visible');
+      return;
+    }
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Отправляем...';
+
+    const attendingText = attendance === 'yes'
+      ? `Придёт 🎉 (гостей: ${guestCount})`
+      : 'Не придёт 😢';
+
+    // Переменные приведены в соответствие с тегами в EmailJS {{name}}
+    const templateParams = {
+      name: name,
+      attendance: attendingText,
+      guest_count: attendance === 'yes' ? guestCount : 0,
+      comment: comment || 'Не указан'
+    };
+
+    try {
+      await emailjs.send('service_i6r1lej', 'template_y8svtrl', templateParams);
+
+      const firstName = name.split(' ')[0];
+      document.getElementById('successText').textContent =
+        attendance === 'yes' ? `Ждём вас, ${firstName}!` : `Жаль, ${firstName}...`;
+      document.getElementById('successSub').textContent =
+        attendance === 'yes'
+          ? `Отлично! Записали: ${guestCount} ${guestCount === 1 ? 'гость' : guestCount < 5 ? 'гостя' : 'гостей'}. Увидимся 1 октября в 17:00!`
+          : 'Спасибо, что сообщили. Будем думать о вас в этот день!';
+
+      document.getElementById('rsvpForm').style.display = 'none';
+      document.getElementById('successMsg').classList.add('visible');
+
+    } catch (err) {
+      btn.disabled = false;
+      btn.textContent = 'Отправить ответ';
+      document.getElementById('errorText').textContent =
+        'Ошибка отправки. Пожалуйста, попробуйте позже или свяжитесь с нами напрямую.';
+      errEl.classList.add('visible');
+      console.error('EmailJS Error:', err);
+    }
+  }
+</script>
+</body>
+</html>
