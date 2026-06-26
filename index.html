@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Егор & Валерия — Приглашение на свадьбу</title>
   
+  <!-- ИКОНКА САЙТА (ФАВИКОН) С ЗАЩИТОЙ ОТ КЭША -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg?v=1">
 
   <style>
@@ -111,7 +112,7 @@
       margin: 0 auto;
     }
 
-    /* ФОТО-БЛОК */
+    /* РОДНОЙ СЛАЙДЕР С ФОТО */
     .photo-section {
       position: relative;
       z-index: 1;
@@ -423,11 +424,6 @@
 
     .submit-btn:hover { background: #caa870; }
     .submit-btn:active { transform: scale(0.99); }
-    .submit-btn:disabled {
-      background: rgba(184, 148, 90, 0.3);
-      cursor: not-allowed;
-      color: rgba(26, 16, 8, 0.5);
-    }
 
     .success-msg {
       display: none;
@@ -442,11 +438,7 @@
     .success-msg.visible { display: block; animation: fadeIn 0.5s ease; }
 
     .success-icon { font-size: 32px; color: #b8945a; margin-bottom: 12px; }
-    .success-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 22px; font-style: italic;
-      color: #f0e2b8; margin-bottom: 8px;
-    }
+    .success-text { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-style: italic; color: #f0e2b8; margin-bottom: 8px; }
     .success-sub { font-size: 13px; color: #7a6840; line-height: 1.6; }
 
     .error-msg {
@@ -475,40 +467,41 @@
       color: #7a6840;
     }
 
-    /* КНОПКА МУЗЫКИ */
+    /* ФИКС КНОПКИ МУЗЫКИ: кликабельная, справа внизу, максимальный приоритет */
     .music-control-btn {
       position: fixed;
       bottom: 24px;
       right: 24px;
-      width: 44px;
-      height: 44px;
-      background: rgba(26, 16, 8, 0.8);
-      border: 0.5px solid rgba(184, 148, 90, 0.5);
+      width: 50px;
+      height: 50px;
+      background: #1a1008;
+      border: 1px solid #b8945a;
       border-radius: 50%;
       color: #e8d5a3;
-      font-size: 18px;
+      font-size: 20px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 9999;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      z-index: 999999 !important; /* Поверх абсолютно всего */
+      pointer-events: auto !important; /* Перехватывает клик в любой ситуации */
+      box-shadow: 0 4px 16px rgba(0,0,0,0.7);
       transition: all 0.3s ease;
     }
 
     .music-control-btn:hover {
-      transform: scale(1.05);
-      border-color: rgba(184, 148, 90, 1);
+      transform: scale(1.08);
+      background: #2a1a08;
+      border-color: #e8d5a3;
     }
 
     .music-control-btn.playing {
       animation: pulseMusic 2s infinite ease-in-out;
-      border-color: #b8945a;
     }
 
     @keyframes pulseMusic {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(184, 148, 90, 0.4); }
-      50% { box-shadow: 0 0 0 8px rgba(184, 148, 90, 0); }
+      0%, 100% { box-shadow: 0 0 0 0 rgba(184, 148, 90, 0.5); }
+      50% { box-shadow: 0 0 0 10px rgba(184, 148, 90, 0); }
     }
 
     @keyframes fadeIn {
@@ -522,7 +515,7 @@
       .slider-container { height: 380px; }
       .details-grid { grid-template-columns: 1fr; }
       .detail-card { padding: 24px 16px; border-bottom: 0.5px solid rgba(184,148,90,0.1); }
-      .music-control-btn { bottom: 16px; right: 16px; width: 40px; height: 40px; font-size: 16px; }
+      .music-control-btn { bottom: 20px; right: 20px; width: 46px; height: 46px; font-size: 18px; }
     }
   </style>
 </head>
@@ -531,6 +524,7 @@
 <div class="invite-wrap">
   <div class="stars" id="stars"></div>
 
+  <!-- HERO -->
   <div class="hero">
     <div class="eyebrow">01 · 10 · 2026 · Казань</div>
     <div class="main-title">Мы женимся</div>
@@ -548,10 +542,12 @@
     </div>
   </div>
 
+  <!-- ФОТОГАЛЕРЕЯ (СЛАЙДЕР) -->
   <div class="photo-section">
     <div class="slider-frame">
       <div class="slider-container">
-        <div class="slider-track">
+        <div class="slider-track" id="sliderTrack">
+          <!-- Твой оригинальный слайдер со старой рабочей фоткой -->
           <div class="slide active">
             <img src="Свадьба.PNG" alt="Егор и Валерия">
           </div>
@@ -564,6 +560,7 @@
     </div>
   </div>
 
+  <!-- DETAILS -->
   <div class="details-grid">
     <div class="detail-card">
       <span class="detail-icon">📅</span>
@@ -582,6 +579,7 @@
     </div>
   </div>
 
+  <!-- DRESSCODE -->
   <div class="dresscode-section">
     <div class="section-title">Дресс-код</div>
     <div class="section-sub">Приветствуем оттенки</div>
@@ -610,6 +608,7 @@
     <p style="font-size:13px; color:#7a6840; font-style:italic;">праздничный образ</p>
   </div>
 
+  <!-- RSVP -->
   <div class="rsvp-section">
     <div class="rsvp-title">Подтверждение участия</div>
     <div class="rsvp-sub">Пожалуйста, ответьте до 1 сентября 2026</div>
@@ -662,11 +661,9 @@
     </div>
   </div>
 
-  <audio id="bgMusic" src="music.mp3" loop></audio>
-  
-  <button id="musicBtn" class="music-control-btn" onclick="toggleMusic()">
-    <span id="musicIcon">🎵</span>
-  </button>
+  <!-- АУДИОПЛЕЕР И КНОПКАУПРАВЛЕНИЯ -->
+  <audio id="bgMusic" src="music.mp3" loop prefetch="auto"></audio>
+  <button id="musicBtn" class="music-control-btn" onclick="toggleMusic()">🎵</button>
 
   <div class="footer">
     <div class="footer-text">С любовью, Егор &amp; Валерия ♡</div>
@@ -675,7 +672,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-  // Считывание имен из ссылки
+  // Считывание персональных имен из ссылки
   (function() {
     const search = window.location.search;
     if (search) {
@@ -694,7 +691,7 @@
     }
   })();
 
-  // Звездное небо
+  // Генератор звездного неба
   const starsEl = document.getElementById('stars');
   for (let i = 0; i < 40; i++) {
     const s = document.createElement('div');
@@ -707,35 +704,33 @@
   // Музыкальный плеер
   const audio = document.getElementById('bgMusic');
   const musicBtn = document.getElementById('musicBtn');
-  const musicIcon = document.getElementById('musicIcon');
 
   function toggleMusic() {
     if (audio.paused) {
       audio.play().then(() => {
         musicBtn.classList.add('playing');
-        musicIcon.textContent = '🔊';
-      }).catch(err => console.log("Воспроизведение заблокировано"));
+        musicBtn.textContent = '🔊';
+      }).catch(err => console.log("Блокировка браузера: нужен ручной клик."));
     } else {
       audio.pause();
       musicBtn.classList.remove('playing');
-      musicIcon.textContent = '🔇';
+      musicBtn.textContent = '🔇';
     }
   }
 
-  // Автозапуск при первом взаимодействии с экраном
+  // Автозапуск музыки при клике в пустом месте экрана
   document.addEventListener('click', function startMusicOnInteraction() {
     if (audio.paused && !musicBtn.classList.contains('playing')) {
       audio.play().then(() => {
         musicBtn.classList.add('playing');
-        musicIcon.textContent = '🔊';
-      }).catch(e => console.log("Ждем клика по кнопке"));
+        musicBtn.textContent = '🔊';
+      }).catch(e => console.log("Ожидание прямого тапа по кнопке"));
     }
     document.removeEventListener('click', startMusicOnInteraction);
   }, { once: true });
 
-  // Инициализация EmailJS
+  // EmailJS логика
   emailjs.init('LV4oC3Uxu9Nbg7g7I');
-
   let guestCount = 1;
 
   function changeCount(delta) {
@@ -765,9 +760,7 @@
     btn.disabled = true;
     btn.textContent = 'Отправляем...';
 
-    const attendingText = attendance === 'yes'
-      ? `Придёт 🎉 (гостей: ${guestCount})`
-      : 'Не придёт 😢';
+    const attendingText = attendance === 'yes' ? `Придёт 🎉 (гостей: ${guestCount})` : 'Не придёт 😢';
 
     const templateParams = {
       to_email: 'asinegor17@gmail.com',
@@ -780,25 +773,18 @@
 
     try {
       await emailjs.send('service_i6r1lej', 'template_y8svtrl', templateParams);
-
       const firstName = name.split(' ')[0];
-      document.getElementById('successText').textContent =
-        attendance === 'yes' ? `Ждём вас, ${firstName}!` : `Жаль, ${firstName}...`;
-      document.getElementById('successSub').textContent =
-        attendance === 'yes'
-          ? `Отлично! Записали: ${guestCount} ${guestCount === 1 ? 'гость' : guestCount < 5 ? 'гостя' : 'гостей'}. Увидимся 1 октября в 17:00!`
-          : 'Спасибо, что сообщили. Будем думать о вас в этот день!';
-
+      document.getElementById('successText').textContent = attendance === 'yes' ? `Ждём вас, ${firstName}!` : `Жаль, ${firstName}...`;
+      document.getElementById('successSub').textContent = attendance === 'yes' 
+        ? `Отлично! Записали: ${guestCount}. Увидимся 1 октября в 17:00!` 
+        : 'Спасибо, что предупредили!';
       document.getElementById('rsvpForm').style.display = 'none';
       document.getElementById('successMsg').classList.add('visible');
-
     } catch (err) {
       btn.disabled = false;
       btn.textContent = 'Отправить ответ';
-      document.getElementById('errorText').textContent =
-        'Ошибка отправки. Пожалуйста, попробуйте позже или свяжитесь с нами напрямую.';
+      document.getElementById('errorText').textContent = 'Ошибка отправки. Попробуйте еще раз.';
       errEl.classList.add('visible');
-      console.error('EmailJS Error:', err);
     }
   }
 </script>
