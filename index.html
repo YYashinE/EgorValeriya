@@ -886,6 +886,20 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
+  // Принудительный скролл вверх при перезагрузке страницы
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+  
+  window.addEventListener('beforeunload', () => {
+    window.scrollTo(0, 0);
+  });
+  
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 0);
+  });
   // Инициализация именных параметров из URL (?to=Имя)
   (function() {
     const search = window.location.search;
