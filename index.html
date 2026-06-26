@@ -458,6 +458,7 @@
 <div class="invite-wrap">
   <div class="stars" id="stars"></div>
 
+  <!-- HERO -->
   <div class="hero">
     <div class="eyebrow">01 · 10 · 2026 · Казань</div>
     <div class="main-title">Мы женимся</div>
@@ -475,6 +476,7 @@
     </p>
   </div>
 
+  <!-- PHOTO -->
   <div class="photo-section">
     <div class="photo-frame">
       <img src="Свадьба.PNG" alt="Егор и Валерия" id="couplePhoto" />
@@ -484,6 +486,7 @@
     </div>
   </div>
 
+  <!-- DETAILS -->
   <div class="details-grid">
     <div class="detail-card">
       <span class="detail-icon"><i class="ti ti-calendar-heart" aria-hidden="true"></i></span>
@@ -502,6 +505,7 @@
     </div>
   </div>
 
+  <!-- DRESSCODE -->
   <div class="dresscode-section">
     <div class="section-title">Дресс-код</div>
     <div class="section-sub">Приветствуем оттенки</div>
@@ -530,6 +534,7 @@
     <p style="font-size:13px; color:#7a6840; font-style:italic;">праздничный образ</p>
   </div>
 
+  <!-- RSVP -->
   <div class="rsvp-section">
     <div class="rsvp-title">Подтверждение участия</div>
     <div class="rsvp-sub">Пожалуйста, ответьте до 1 сентября 2026</div>
@@ -590,14 +595,22 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-  // Динамические имена гостей из ссылки
+  // Динамические имена гостей из ссылки (исправленная версия)
   (function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const guestName = urlParams.get('to');
-    
-    if (guestName) {
-      const decodedName = decodeURIComponent(guestName.replace(/\+/g, ' '));
-      document.getElementById('guestTarget').textContent = `${decodedName},`;
+    const search = window.location.search;
+    if (search) {
+      const matches = search.match(/[?&]to=([^&]*)/);
+      if (matches && matches[1]) {
+        try {
+          const rawName = matches[1].replace(/\+/g, ' ');
+          const decodedName = decodeURIComponent(rawName);
+          if (decodedName.trim()) {
+            document.getElementById('guestTarget').textContent = decodedName.trim() + ',';
+          }
+        } catch (e) {
+          console.error('Ошибка декодирования имени:', e);
+        }
+      }
     }
   })();
 
