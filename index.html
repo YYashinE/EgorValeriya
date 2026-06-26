@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Егор & Валерия — Приглашение на свадьбу</title>
   
-  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=1">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=2">
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Raleway:wght@300;400;500&display=swap');
@@ -111,68 +111,119 @@
       margin: 0 auto;
     }
 
-    /* ФИКС КОНТЕЙНЕРА ОТКРЫТКИ */
+    /* ПОЛНОЦЕННЫЙ НАДЕЖНЫЙ СЛАЙДЕР */
     .photo-section {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       padding: 32px 24px;
       text-align: center;
     }
 
     .slider-frame {
       display: inline-block;
-      max-width: 450px;
+      max-width: 420px;
       width: 100%;
       border: 0.5px solid rgba(184, 148, 90, 0.35);
-      border-radius: 4px;
-      padding: 4px;
+      border-radius: 6px;
+      padding: 6px;
       background: #2a1a08;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.6);
     }
 
     .slider-container {
       position: relative;
       width: 100%;
+      height: 480px; /* Фиксированная безопасная высота */
       background: #1a1008;
       overflow: hidden;
-      border-radius: 2px;
+      border-radius: 4px;
     }
 
     .slider-track {
-      position: relative;
+      display: flex;
       width: 100%;
+      height: 100%;
+      position: relative;
     }
 
     .slide {
-      width: 100%;
-      display: none;
+      min-width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 0.6s ease-in-out;
+      z-index: 1;
     }
 
     .slide.active {
-      display: block;
-      animation: fadeInSlide 0.6s ease-in-out;
+      opacity: 1;
+      z-index: 2;
     }
 
     .slide img {
       width: 100%;
-      height: auto;
-      display: block;
+      height: 100%;
+      object-fit: contain; /* Картинка полностью помещается без обрезаний */
+      background: #1a1008;
     }
 
-    @keyframes fadeInSlide {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    /* Стрелки навигации */
+    .slider-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(26, 16, 8, 0.75);
+      border: 0.5px solid rgba(184, 148, 90, 0.4);
+      color: #e8d5a3;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      z-index: 10;
+      transition: all 0.2s;
+    }
+
+    .slider-arrow:hover { background: #b8945a; color: #1a1008; }
+    .arrow-left { left: 12px; }
+    .arrow-right { right: 12px; }
+
+    /* Точки (индикаторы) */
+    .slider-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      background: rgba(184, 148, 90, 0.3);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .dot.active {
+      background: #b8945a;
+      transform: scale(1.2);
     }
 
     /* ДЕТАЛИ */
     .details-grid {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       gap: 1px;
       background: rgba(184, 148, 90, 0.1);
-      margin: 20px 0 0;
+      margin: 40px 0 0;
       border-top: 0.5px solid rgba(184, 148, 90, 0.2);
       border-bottom: 0.5px solid rgba(184, 148, 90, 0.2);
     }
@@ -210,7 +261,7 @@
     /* ДРЕСС-КОД */
     .dresscode-section {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       padding: 48px 32px;
       text-align: center;
       border-bottom: 0.5px solid rgba(184, 148, 90, 0.15);
@@ -260,7 +311,7 @@
     /* RSVP ФОРМА */
     .rsvp-section {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       padding: 56px 32px 64px;
       text-align: center;
       max-width: 560px;
@@ -431,7 +482,7 @@
     .error-msg.visible { display: block; }
 
     .footer {
-      position: relative; z-index: 1;
+      position: relative; z-index: 2;
       text-align: center;
       padding: 32px;
       border-top: 0.5px solid rgba(184, 148, 90, 0.1);
@@ -443,30 +494,29 @@
       color: #7a6840;
     }
 
-    /* ФИКС КНОПКИ МУЗЫКИ */
+    /* КНОПКА МУЗЫКИ */
     .music-control-btn {
       position: fixed;
       bottom: 24px;
       right: 24px;
-      width: 50px;
-      height: 50px;
+      width: 54px;
+      height: 54px;
       background: #1a1008;
-      border: 1px solid #b8945a;
+      border: 1.5px solid #b8945a;
       border-radius: 50%;
       color: #e8d5a3;
-      font-size: 20px;
+      font-size: 22px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 999999 !important;
-      pointer-events: auto !important;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.7);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.8);
       transition: all 0.3s ease;
     }
 
     .music-control-btn:hover {
-      transform: scale(1.08);
+      transform: scale(1.1);
       background: #2a1a08;
     }
 
@@ -475,21 +525,17 @@
     }
 
     @keyframes pulseMusic {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(184, 148, 90, 0.5); }
-      50% { box-shadow: 0 0 0 10px rgba(184, 148, 90, 0); }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
+      0%, 100% { box-shadow: 0 0 0 0 rgba(184, 148, 90, 0.6); }
+      50% { box-shadow: 0 0 0 12px rgba(184, 148, 90, 0); }
     }
 
     @media (max-width: 480px) {
       .main-title { font-size: 52px; }
       .names { font-size: 26px; }
+      .slider-container { height: 420px; }
       .details-grid { grid-template-columns: 1fr; }
       .detail-card { padding: 24px 16px; border-bottom: 0.5px solid rgba(184,148,90,0.1); }
-      .music-control-btn { bottom: 20px; right: 20px; width: 46px; height: 46px; font-size: 18px; }
+      .music-control-btn { bottom: 20px; right: 20px; width: 48px; height: 48px; font-size: 18px; }
     }
   </style>
 </head>
@@ -518,11 +564,25 @@
   <div class="photo-section">
     <div class="slider-frame">
       <div class="slider-container">
-        <div class="slider-track" id="sliderTrack">
+        <button class="slider-arrow arrow-left" onclick="moveSlide(-1)">❮</button>
+        <button class="slider-arrow arrow-right" onclick="moveSlide(1)">❯</button>
+        
+        <div class="slider-track">
           <div class="slide active">
-            <img src="Свадьба.PNG?v=1" alt="Егор и Валерия">
+            <img src="1.jpg?v=2" alt="Фото 1">
           </div>
+          <div class="slide">
+            <img src="2.jpg?v=2" alt="Фото 2">
           </div>
+          <div class="slide">
+            <img src="3.jpg?v=2" alt="Фото 3">
+          </div>
+        </div>
+      </div>
+      <div class="slider-dots">
+        <div class="dot active" onclick="setSlide(0)"></div>
+        <div class="dot" onclick="setSlide(1)"></div>
+        <div class="dot" onclick="setSlide(2)"></div>
       </div>
     </div>
   </div>
@@ -625,7 +685,7 @@
     </div>
   </div>
 
-  <audio id="bgMusic" src="music.mp3?v=1" loop preload="auto"></audio>
+  <audio id="bgMusic" src="music.mp3?v=2" loop preload="auto"></audio>
   <button id="musicBtn" class="music-control-btn" onclick="toggleMusic()">🎵</button>
 
   <div class="footer">
@@ -635,7 +695,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-  // Инициализация имен из URL
+  // Считывание параметров URL
   (function() {
     const search = window.location.search;
     if (search) {
@@ -654,7 +714,7 @@
     }
   })();
 
-  // Звезды
+  // Звездное небо
   const starsEl = document.getElementById('stars');
   for (let i = 0; i < 40; i++) {
     const s = document.createElement('div');
@@ -664,18 +724,39 @@
     starsEl.appendChild(s);
   }
 
-  // Скрипт слайдера
+  // Скрипт Логики Слайдера
+  let currentSlide = 0;
   const slides = document.querySelectorAll('.slide');
-  if (slides.length > 1) {
-    let currentSlide = 0;
-    setInterval(() => {
-      slides[currentSlide].classList.remove('active');
-      currentSlide = (currentSlide + 1) % slides.length;
-      slides[currentSlide].classList.add('active');
-    }, 4000);
+  const dots = document.querySelectorAll('.dot');
+
+  function updateSlider() {
+    slides.forEach((slide, index) => {
+      if (index === currentSlide) {
+        slide.classList.add('active');
+        dots[index].classList.add('active');
+      } else {
+        slide.classList.remove('active');
+        dots[index].classList.remove('active');
+      }
+    });
   }
 
-  // Логика плеера
+  function moveSlide(direction) {
+    currentSlide = (currentSlide + direction + slides.length) % slides.length;
+    updateSlider();
+  }
+
+  function setSlide(index) {
+    currentSlide = index;
+    updateSlider();
+  }
+
+  // Автопрокрутка раз в 4 секунды
+  setInterval(() => {
+    moveSlide(1);
+  }, 4000);
+
+  // Музыкальный блок
   const audio = document.getElementById('bgMusic');
   const musicBtn = document.getElementById('musicBtn');
 
@@ -684,7 +765,9 @@
       audio.play().then(() => {
         musicBtn.classList.add('playing');
         musicBtn.textContent = '🔊';
-      }).catch(err => alert("Кликните по экрану в любом месте, затем нажмите кнопку музыки снова."));
+      }).catch(err => {
+        alert("Пожалуйста, сначала тапните по экрану, чтобы активировать музыку.");
+      });
     } else {
       audio.pause();
       musicBtn.classList.remove('playing');
@@ -692,15 +775,15 @@
     }
   }
 
-  // Автозапуск при первом взаимодействии
-  document.addEventListener('click', function startMusicOnInteraction() {
+  // Попытка завести при первом клике
+  document.addEventListener('click', function initMusic() {
     if (audio.paused && !musicBtn.classList.contains('playing')) {
       audio.play().then(() => {
         musicBtn.classList.add('playing');
         musicBtn.textContent = '🔊';
-      }).catch(e => console.log("Браузер заблокировал автоплей."));
+      }).catch(e => console.log("Блокировка автоплея"));
     }
-    document.removeEventListener('click', startMusicOnInteraction);
+    document.removeEventListener('click', initMusic);
   }, { once: true });
 
   // EmailJS
