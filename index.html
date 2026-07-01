@@ -215,17 +215,19 @@
       z-index: 0;
     }
 
+    /* ИСПРАВЛЕНИЕ: Сделали мерцающие звездочки гораздо заметнее */
     .star {
       position: absolute;
-      background: #eae2d5;
+      background: #fff6e5;
       border-radius: 50%;
-      opacity: 0.08;
-      animation: twinkle 3.5s ease-in-out infinite;
+      opacity: 0.3; /* Увеличили базовую видимость */
+      box-shadow: 0 0 6px rgba(255, 246, 229, 0.8); /* Добавили красивое неоновое свечение */
+      animation: twinkle 2.5s ease-in-out infinite; /* Сделали мерцание чуть динамичнее */
     }
 
     @keyframes twinkle {
-      0%, 100% { opacity: 0.03; }
-      50% { opacity: 0.2; }
+      0%, 100% { opacity: 0.15; transform: scale(0.8); }
+      50% { opacity: 0.85; transform: scale(1.2); } /* На пике звезда горит ярко */
     }
 
     /* Первый экран */
@@ -547,7 +549,7 @@
       border: 1px solid rgba(163, 140, 103, 0.3);
       border-radius: 6px;
       padding: 18px;
-      padding-right: 40px; /* Защита от наезжания текста на стрелку */
+      padding-right: 40px; 
       color: #eae2d5;
       font-family: 'Raleway', sans-serif;
       font-size: 15px;
@@ -555,7 +557,6 @@
       transition: all 0.25s ease;
       width: 100%;
       
-      /* ИСПРАВЛЕНИЕ IMAGE_27a719.png: убираем стандартную стрелку браузера */
       -webkit-appearance: none;
       -moz-appearance: none;
       appearance: none;
@@ -663,7 +664,7 @@
     }
     .error-msg.visible { display: block; }
 
-    /* Блок таймера — ИСПРАВЛЕН НАЕЗД СЕКУНД ИЗ IMAGE_274D9C.PNG */
+    /* Блок таймера */
     .countdown-section {
       position: relative;
       z-index: 2;
@@ -952,12 +953,10 @@
 
     /* Адаптация под смартфоны */
     @media (max-width: 480px) {
-      /* ИСПРАВЛЕНИЕ IMAGE_27aada.png: полностью убираем боковой декор, чтобы освободить инпуты */
       .side-decor { 
         display: none !important; 
       }
       
-      /* ИСПРАВЛЕНИЕ IMAGE_27aada.png: переносим кнопку музыки влево, чтобы не мешала кнопке «Отправить» */
       .music-control-btn { 
         bottom: 15px; 
         left: 15px;  
@@ -1013,7 +1012,7 @@
 <audio id="bgMusic" src="music.mp3?v=5" loop preload="auto"></audio>
 <button id="musicBtn" class="music-control-btn" onclick="toggleMusic()">🎵</button>
 
-<!-- Левая переливающаяся вязь (Винтажный растительный вензель) -->
+<!-- Левая переливающаяся вязь -->
 <svg class="side-decor decor-left-top" viewBox="0 0 100 300" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="goldGradVine" x1="0%" y1="0%" x2="100%" y2="100%" class="gold-foil-grad">
@@ -1134,6 +1133,21 @@
     <div class="scroll-arrow-anchor" onclick="scrollToSection('sec-map')"><div class="modern-arrow"></div></div>
   </div>
 
+  <div class="map-section fade-in-element" id="sec-map">
+    <div class="section-title" style="font-size: 32px;">Как добраться</div>
+    <div class="map-container">
+      <!-- ИСПРАВЛЕНИЕ IMAGE_27be5f.png: убрали инвертирующий css-фильтр и включили официальную темную тему Яндекса через &theme=dark -->
+      <iframe src="https://yandex.ru/map-widget/v1/?ll=49.123300%2C55.794250&mode=search&ol=biz&oid=1152063852&z=16&text=Казань%2C%20улица%20Пушкина%2C%2052&theme=dark" width="100%" height="100%" frameborder="0" allowfullscreen="true" style="position:relative; border: none;"></iframe>
+    </div>
+  </div>
+
+  <div class="section-divider">
+    <div class="divider-line-short"></div>
+    <div class="divider-center-dot"></div>
+    <div class="divider-line-short right"></div>
+    <div class="scroll-arrow-anchor" onclick="scrollToSection('sec-dresscode')"><div class="modern-arrow"></div></div>
+  </div>
+
   <div class="dresscode-section fade-in-element" id="sec-dresscode">
     <div class="section-title">Дресс-код</div>
     <div class="section-sub">Приветствуем оттенки</div>
@@ -1143,7 +1157,7 @@
       <div class="swatch-wrap stagger-item"><div class="swatch" style="background:#4a6050;"></div><div class="swatch-name">зелёный</div></div>
       <div class="swatch-wrap stagger-item"><div class="swatch" style="background:#7090a8;"></div><div class="swatch-name">голубой</div></div>
       <div class="swatch-wrap stagger-item"><div class="swatch" style="background:#ffffff; border-color:rgba(255,255,255,0.2);"></div><div class="swatch-name">белый</div></div>
-      <div class="swatch-wrap stagger-item"><div class="swatch" style="background:#F9E69F; border-color:rgba(255,255,255,0.2);"></div><div class="swatch-name">лимонный</div></div>
+      <div class="swatch-wrap stagger-item"><div class="swatch" style="background:#FDE910; border-color:rgba(255,255,255,0.2);"></div><div class="swatch-name">лимонный</div></div>
     </div>
     <p style="font-size:13px; color:#a38c67; font-style:italic;">праздничный образ</p>
   </div>
@@ -1155,20 +1169,6 @@
     <div class="scroll-arrow-anchor" onclick="scrollToSection('sec-rsvp')"><div class="modern-arrow"></div></div>
   </div>
 
-    <div class="map-section fade-in-element" id="sec-map">
-    <div class="section-title" style="font-size: 32px;">Как добраться</div>
-    <div class="map-container">
-      <iframe src="https://yandex.ru/map-widget/v1/?ll=49.123300%2C55.794250&mode=search&ol=biz&oid=1152063852&z=16&text=Казань%2C%20улица%20Пушкина%2C%2052" width="100%" height="100%" frameborder="0" allowfullscreen="true" style="position:relative; filter: invert(90%) hue-rotate(180deg) contrast(120%);"></iframe>
-    </div>
-  </div>
-
-  <div class="section-divider">
-    <div class="divider-line-short"></div>
-    <div class="divider-center-dot"></div>
-    <div class="divider-line-short right"></div>
-    <div class="scroll-arrow-anchor" onclick="scrollToSection('sec-dresscode')"><div class="modern-arrow"></div></div>
-  </div>
-  
   <div class="rsvp-section fade-in-element" id="sec-rsvp">
     <div class="rsvp-title">Подтверждение участия</div>
     <div class="rsvp-sub" style="color: #785f37;">Пожалуйста, ответьте до 1 сентября 2026</div>
@@ -1250,19 +1250,17 @@
     if(el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
   }
 
-  // Мягкий параллакс для боковой вязи
   const decorLeft = document.querySelector('.decor-left-top');
   const decorRight = document.querySelector('.decor-right-bottom');
 
   window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
-    if (window.innerWidth > 480) { // Применяем только для десктопов
+    if (window.innerWidth > 480) { 
       decorLeft.style.transform = `translate3d(0, ${scrolled * 0.12}px, 0)`;
       decorRight.style.transform = `translate3d(0, ${-scrolled * 0.08}px, 0) scaleX(-1)`;
     }
   }, { passive: true });
 
-  // Эффект наклона инфо-карточек
   const tiltCards = document.querySelectorAll('.tilt-card');
   tiltCards.forEach(card => {
     card.addEventListener('mousemove', (e) => {
@@ -1280,7 +1278,6 @@
     });
   });
 
-  // Парсинг имени гостя из URL
   (function() {
     const search = window.location.search;
     if (search) {
@@ -1294,17 +1291,17 @@
     }
   })();
 
-  // Звёздный фон
+  // Генерируем звёздный фон
   const starsEl = document.getElementById('stars');
   for (let i = 0; i < 35; i++) {
     const s = document.createElement('div');
     s.className = 'star';
-    const size = Math.random() * 2 + 1;
-    s.style.cssText = `width:${size}px;height:${size}px;top:${Math.random()*100}%;left:${Math.random()*100}%;animation-delay:${Math.random()*4}s;animation-duration:${2.5+Math.random()*3}s`;
+    const size = Math.random() * 2 + 1.5; // Слегка увеличили минимальный размер
+    s.style.cssText = `width:${size}px;height:${size}px;top:${Math.random()*100}%;left:${Math.random()*100}%;animation-delay:${Math.random()*3}s;animation-duration:${2.0+Math.random()*2}s`;
     starsEl.appendChild(s);
   }
 
-  // Таймер обратного отсчёта
+  // Таймер
   const targetDate = new Date('October 1, 2026 17:00:00').getTime();
   function updateCountdown() {
     const now = new Date().getTime();
@@ -1321,13 +1318,12 @@
   }
   setInterval(updateCountdown, 1000); updateCountdown();
 
-  // Scroll Observer
   const filterObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); } });
   }, { root: null, rootMargin: '0px', threshold: 0.05 });
   document.querySelectorAll('.fade-in-element').forEach(el => { filterObserver.observe(el); });
 
-  // Слайдер картинок
+  // Слайдер
   let currentSlide = 0;
   const slides = document.querySelectorAll('.slide');
   const dots = document.querySelectorAll('.dot');
@@ -1358,7 +1354,7 @@
   }
   restartSliderTimer();
 
-  // Оверлей и аудиосистема
+  // Оверлей и музыка
   const audio = document.getElementById('bgMusic');
   const musicBtn = document.getElementById('musicBtn');
   const overlay = document.getElementById('musicOverlay');
@@ -1390,7 +1386,7 @@
     } else { audio.pause(); musicBtn.classList.remove('playing'); musicBtn.textContent = '🎵'; }
   }
 
-  // EmailJS и RSVP логика
+  // Форма отправки
   emailjs.init('LV4oC3Uxu9Nbg7g7I');
   let guestCount = 1;
   
