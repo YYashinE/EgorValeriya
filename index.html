@@ -1285,34 +1285,32 @@
     });
   });
 
-function getNameFromUrl() {
-        const urlParams = new URLSearchParams(window.location.search);
-        let name = urlParams.get('name'); // Предположим, параметр называется ?name=Имя
-
-        if (name) {
-            // 1. Заменяем плюсы на пробелы (на случай, если пришли сырые плюсы)
-            // 2. Декодируем %20 и другие спецсимволы
-            try {
-                name = decodeURIComponent(name.replace(/\+/g, ' '));
-            } catch (e) {
-                console.error("Ошибка декодирования имени:", e);
-            }
+  // Чтение имени гостя из URL
+  (function() {
+    const search = window.location.search;
+    if (search) {
+      const matches = search.match(/[?&]to=([^&]*)/);
+      if (matches && matches[1]) {
+        try {
+          const decodedName = decodeURIComponent(matches[1].replace(/\%/g, ' '));
+          if (decodedName.trim()) { 
+            // Подставляем имя в приветствие
+            document.getElementById('guestTarget').textContent = decodedName.trim() + ','; 
             
-            // 3. Убираем случайные двойные пробелы и пробелы по краям
-            return name.replace(/\s+/g, ' ').trim();
-        }
-        return '';
+            // ДОПОЛНИТЕЛЬНОЕ УЛУЧШЕНИЕ: Автоматически заполняем имя в RSVP форме, чтобы гостю не вводить дважды
+            const inputField = document.getElementById('guestName');
+            if (inputField) {
+              // Если имя содержит обращение (например, "Дорогие Михаил и Мария"), 
+              // убираем вежливое слово для поля ввода формы, оставляя только имена
+              let formName = decodedName.trim();
+              formName = formName.replace(/^(Дорогой|Дорогая|Дорогие)\s%/i, '');
+              inputField.value = formName;
+            }
+          }
+        } catch (e) { console.error(e); }
+      }
     }
-
-    // Автоматически подставляем красивое имя в форму при загрузке страницы
-    window.addEventListener('DOMContentLoaded', () => {
-        const userName = getNameFromUrl();
-        const nameInput = document.getElementById('name'); // Убедись, что у <input> в форме есть id="name"
-        
-        if (nameInput && userName) {
-            nameInput.value = userName;
-        }
-    });
+  })();
 
   // Генерируем звёздный фон
   const starsEl = document.getElementById('stars');
