@@ -6,9 +6,9 @@
   <title>Егор & Валерия — Приглашение на свадьбу</title>
   
   <meta property="og:title" content="Егор & Валерия — Приглашение на свадьбу" />
-  <meta property="og:description" content="Дорогие родные и близкие, приглашаем вас разделить с нами этот особенный день!" />
+  <meta property="og:description" content="Дорогие родные и близкие, приглашаем вас разделить с нами этот особенный day!" />
   <meta property="og:image" content="https://yyashine.github.io/EgorValeriya/2.jpg" />
-  <meta property="og:url" content="https://yyashine.github.io/EgorValeriya/?to=Дорогие+" />
+  <meta property="og:url" content="https://yyashine.github.io/EgorValeriya/?to=%D0%94%D0%BE%D1%80%D0%BE%D0%B3%D0%B8%D0%B5%" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Свадебное приглашение" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg?v=5">
@@ -221,19 +221,18 @@
       z-index: 0;
     }
 
-    /* ИСПРАВЛЕНИЕ: Сделали мерцающие звездочки гораздо заметнее */
     .star {
       position: absolute;
       background: #fff6e5;
       border-radius: 50%;
-      opacity: 0.3; /* Увеличили базовую видимость */
-      box-shadow: 0 0 6px rgba(255, 246, 229, 0.8); /* Добавили красивое неоновое свечение */
-      animation: twinkle 2.5s ease-in-out infinite; /* Сделали мерцание чуть динамичнее */
+      opacity: 0.3; 
+      box-shadow: 0 0 6px rgba(255, 246, 229, 0.8); 
+      animation: twinkle 2.5s ease-in-out infinite; 
     }
 
     @keyframes twinkle {
       0%, 100% { opacity: 0.15; transform: scale(0.8); }
-      50% { opacity: 0.85; transform: scale(1.2); } /* На пике звезда горит ярко */
+      50% { opacity: 0.85; transform: scale(1.2); } 
     }
 
     /* Первый экран */
@@ -1072,12 +1071,7 @@
       <div class="divider-line right"></div>
     </div>
     <div class="invite-text">
-      <span id="guestTarget" style="font-family: 'Cormorant Garamond', serif;
-      font-size: 24px;
-      font-weight: 300;
-      font-style: italic;
-      color: #eae2d5;
-      margin-bottom: 12px;">Дорогие родные и близкие,</span><br>
+      <span id="guestTarget" style="font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 300; font-style: italic; color: #eae2d5; margin-bottom: 12px;">Дорогие родные и близкие,</span><br>
       приглашаем вас разделить с нами<br>
       один из самых счастливых дней <br>
       <em>нашей жизни — день нашей свадьбы</em>
@@ -1145,7 +1139,7 @@
   <div class="map-section fade-in-element" id="sec-map">
     <div class="section-title" style="font-size: 32px;">Как добраться</div>
     <div class="map-container">
-      <iframe src="https://yandex.ru/map-widget/v1/?ll=49.123300%2C55.794250&mode=search&ol=biz&oid=1152063852&z=16&text=Казань%2C%20улица%20Пушкина%2C%2052&theme=dark" width="100%" height="100%" frameborder="0" allowfullscreen="true" style="position:relative; border: none;"></iframe>
+      <iframe src="https://api-maps.yandex.ru/frame/v1/-/CHbYJS-z" width="100%" height="100%" frameborder="0" allowfullscreen="true" style="position:relative; border: none;"></iframe>
     </div>
   </div>
 
@@ -1285,25 +1279,22 @@
     });
   });
 
-  // Чтение имени гостя из URL
+  // ИСПРАВЛЕНО: Чтение имени гостя теперь полноценно поддерживает стандартный %-энкодинг (decodeURIComponent) без привязки к знаку "+"
   (function() {
     const search = window.location.search;
     if (search) {
       const matches = search.match(/[?&]to=([^&]*)/);
       if (matches && matches[1]) {
         try {
-          const decodedName = decodeURIComponent(matches[1].replace(/\%/g, ' '));
+          // Заменяем возможные оставшиеся плюсы, но декодируем именно процентную строку
+          const decodedName = decodeURIComponent(matches[1].replace(/\+/g, ' '));
           if (decodedName.trim()) { 
-            // Подставляем имя в приветствие
             document.getElementById('guestTarget').textContent = decodedName.trim() + ','; 
             
-            // ДОПОЛНИТЕЛЬНОЕ УЛУЧШЕНИЕ: Автоматически заполняем имя в RSVP форме, чтобы гостю не вводить дважды
             const inputField = document.getElementById('guestName');
             if (inputField) {
-              // Если имя содержит обращение (например, "Дорогие Михаил и Мария"), 
-              // убираем вежливое слово для поля ввода формы, оставляя только имена
               let formName = decodedName.trim();
-              formName = formName.replace(/^(Дорогой|Дорогая|Дорогие)\s%/i, '');
+              formName = formName.replace(/^(Дорогой|Дорогая|Дорогие)\s+/i, '');
               inputField.value = formName;
             }
           }
