@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Егор & Валерия — Приглашение на свадьбу</title>
   
+  <meta property="og:title" content="Егор & Валерия — Приглашение на свадьбу" />
+  <meta property="og:description" content="Дорогие родные и близкие, приглашаем вас разделить с нами этот особенный день!" />
+  <meta property="og:image" content="https://yyashine.github.io/EgorValeriya/1.jpg" />
+  <meta property="og:url" content="https://yyashine.github.io/EgorValeriya/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Свадебное приглашение" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg?v=5">
 
   <style>
@@ -1012,7 +1018,6 @@
 <audio id="bgMusic" src="music.mp3?v=5" loop preload="auto"></audio>
 <button id="musicBtn" class="music-control-btn" onclick="toggleMusic()">🎵</button>
 
-<!-- Левая переливающаяся вязь -->
 <svg class="side-decor decor-left-top" viewBox="0 0 100 300" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="goldGradVine" x1="0%" y1="0%" x2="100%" y2="100%" class="gold-foil-grad">
@@ -1027,7 +1032,6 @@
   <path d="M 10,10 Q 25,5 30,20 Q 15,20 10,10 Z M 28,45 Q 45,40 45,55 Q 30,55 28,45 Z M 15,85 Q -2,85 5,100 Q 20,95 15,85 Z M 32,130 Q 55,130 45,150 Q 25,145 32,130 Z M 48,185 Q 65,195 55,210 Q 40,200 48,185 Z M 25,230 Q 8,240 18,255 Q 30,240 25,230 Z M 42,270 Q 60,275 50,290 Q 35,285 42,270 Z" fill="url(#goldGradVine)"/>
 </svg>
 
-<!-- Правая переливающаяся вязь -->
 <svg class="side-decor decor-right-bottom" viewBox="0 0 100 300" xmlns="http://www.w3.org/2000/svg" style="transform: scaleX(-1);">
   <path d="M 10,10 C 50,50 0,100 40,150 C 80,200 20,250 50,290" fill="none" stroke="url(#goldGradVine)" stroke-width="2.5" stroke-linecap="round"/>
   <path d="M 10,10 Q 25,5 30,20 Q 15,20 10,10 Z M 28,45 Q 45,40 45,55 Q 30,55 28,45 Z M 15,85 Q -2,85 5,100 Q 20,95 15,85 Z M 32,130 Q 55,130 45,150 Q 25,145 32,130 Z M 48,185 Q 65,195 55,210 Q 40,200 48,185 Z M 25,230 Q 8,240 18,255 Q 30,240 25,230 Z M 42,270 Q 60,275 50,290 Q 35,285 42,270 Z" fill="url(#goldGradVine)"/>
@@ -1136,7 +1140,6 @@
   <div class="map-section fade-in-element" id="sec-map">
     <div class="section-title" style="font-size: 32px;">Как добраться</div>
     <div class="map-container">
-      <!-- ИСПРАВЛЕНИЕ IMAGE_27be5f.png: убрали инвертирующий css-фильтр и включили официальную темную тему Яндекса через &theme=dark -->
       <iframe src="https://yandex.ru/map-widget/v1/?ll=49.123300%2C55.794250&mode=search&ol=biz&oid=1152063852&z=16&text=Казань%2C%20улица%20Пушкина%2C%2052&theme=dark" width="100%" height="100%" frameborder="0" allowfullscreen="true" style="position:relative; border: none;"></iframe>
     </div>
   </div>
@@ -1277,6 +1280,7 @@
     });
   });
 
+  // Чтение имени гостя из URL
   (function() {
     const search = window.location.search;
     if (search) {
@@ -1284,7 +1288,20 @@
       if (matches && matches[1]) {
         try {
           const decodedName = decodeURIComponent(matches[1].replace(/\+/g, ' '));
-          if (decodedName.trim()) { document.getElementById('guestTarget').textContent = decodedName.trim() + ','; }
+          if (decodedName.trim()) { 
+            // Подставляем имя в приветствие
+            document.getElementById('guestTarget').textContent = decodedName.trim() + ','; 
+            
+            // ДОПОЛНИТЕЛЬНОЕ УЛУЧШЕНИЕ: Автоматически заполняем имя в RSVP форме, чтобы гостю не вводить дважды
+            const inputField = document.getElementById('guestName');
+            if (inputField) {
+              // Если имя содержит обращение (например, "Дорогие Михаил и Мария"), 
+              // убираем вежливое слово для поля ввода формы, оставляя только имена
+              let formName = decodedName.trim();
+              formName = formName.replace(/^(Дорогой|Дорогая|Дорогие)\s+/i, '');
+              inputField.value = formName;
+            }
+          }
         } catch (e) { console.error(e); }
       }
     }
@@ -1295,7 +1312,7 @@
   for (let i = 0; i < 35; i++) {
     const s = document.createElement('div');
     s.className = 'star';
-    const size = Math.random() * 2 + 1.5; // Слегка увеличили минимальный размер
+    const size = Math.random() * 2 + 1.5;
     s.style.cssText = `width:${size}px;height:${size}px;top:${Math.random()*100}%;left:${Math.random()*100}%;animation-delay:${Math.random()*3}s;animation-duration:${2.0+Math.random()*2}s`;
     starsEl.appendChild(s);
   }
