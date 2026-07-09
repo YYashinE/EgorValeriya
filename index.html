@@ -1292,7 +1292,7 @@
       const matches = search.match(/[?&]to=([^&]*)/);
       if (matches && matches[1]) {
         try {
-          const decodedName = decodeURIComponent(matches[1].replace(/\+/g, ' '));
+          const decodedName = decodeURIComponent(matches[1].replace(/\%/g, ' '));
           if (decodedName.trim()) { 
             // Подставляем имя в приветствие
             document.getElementById('guestTarget').textContent = decodedName.trim() + ','; 
@@ -1303,7 +1303,7 @@
               // Если имя содержит обращение (например, "Дорогие Михаил и Мария"), 
               // убираем вежливое слово для поля ввода формы, оставляя только имена
               let formName = decodedName.trim();
-              formName = formName.replace(/^(Дорогой|Дорогая|Дорогие)\s+/i, '');
+              formName = formName.replace(/^(Дорогой|Дорогая|Дорогие)\s%/i, '');
               inputField.value = formName;
             }
           }
